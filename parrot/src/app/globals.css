@@ -70,6 +70,7 @@
 
 body{
   background: linear-gradient(180deg, #431147 0%, rgb(0 0 0) 125%);
+  height: 100vh;
 }
  
 @layer base {

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="flex flex-row items-center justify-center h-screen">
+    <div className="flex flex-row items-center justify-center h-full">
       <div className="flex flex-row w-9/12 justify-between">
 
         <img src="logo1.png" className="w-96 h-96"/>
@@ -24,7 +24,7 @@ export default function Home() {
         </div>
 
       </div>
-      
+      <img src="logo.png" style={{position:"fixed", right:"1rem" , bottom:"1rem" }}/>
     </div>
   );
 }

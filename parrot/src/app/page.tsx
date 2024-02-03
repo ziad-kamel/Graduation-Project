@@ -9,7 +9,7 @@ export default function Home() {
 
         <div className="flex flex-col justify-evenly" style={{width: "45rem"}}>
           <div className="flex justify-center">
-            <h1 style={{fontSize:"2.5rem", color:"white"}}>Explore the power of Al with Audio</h1>
+            <h1 style={{fontSize:"2.5rem", color:"white", fontFamily: "jura"}}>Explore the power of Al with Audio</h1>
           </div>
           
           <div className="flex justify-center">

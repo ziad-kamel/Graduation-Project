@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="flex flex-row items-center justify-center h-full">
       <div className="flex flex-row w-9/12 justify-between">
 
-        <img src="logo1.png" className="w-96 h-96"/>
+        <Image src={'/logo1.png'} alt="parrot pic" width={384} height={384} draggable={false}/>
 
         <div className="flex flex-col justify-evenly" style={{width: "45rem"}}>
           <div className="flex justify-center">
@@ -20,11 +21,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-
         </div>
 
       </div>
-      <img src="logo.png" style={{position:"fixed", right:"1rem" , bottom:"1rem" }}/>
+      <Image src={'/logo.png'} alt="parrot pic" draggable={false} width={80} height={80} style={{position:"fixed", right:"1rem" , bottom:"1rem"}}/>
     </div>
   );
 }

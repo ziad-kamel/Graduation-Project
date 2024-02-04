@@ -24,7 +24,6 @@ export default function Home() {
         </div>
 
       </div>
-      <Image src={'/logo.png'} alt="parrot pic" draggable={false} width={80} height={80} style={{position:"fixed", right:"1rem" , bottom:"1rem"}}/>
     </div>
   );
 }

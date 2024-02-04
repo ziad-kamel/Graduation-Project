@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import  Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,8 +17,12 @@ export default function Home() {
           <div className="flex justify-center">
             <div className="flex flex-row justify-center space-y-8 h-56" style={{width: "27rem", borderRadius:"2rem", backgroundColor:"#787878d6"}}>
               <div className="flex flex-col justify-evenly">
+                <Link  href="/sign-in">
                 <Button  variant="outline" style={{borderRadius:"3rem", backgroundColor: "#54174E", color:"white", fontSize:"2rem", width:"16rem", height:"3.5rem", fontFamily:"jura", border:"none"}}>Explore</Button>
+                </Link>
+                <Link  href="/sign-up">
                 <Button variant="outline" style={{borderRadius:"3rem", backgroundColor: "#54174E", color:"white", fontSize:"2rem", width:"16rem", height:"3.5rem", fontFamily:"jura", border:"none"}}>Register</Button>
+                </Link>                  
               </div>
             </div>
           </div>

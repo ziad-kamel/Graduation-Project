@@ -1,11 +1,15 @@
+"use client"
 import { Note as NoteModel } from "@prisma/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { useState } from "react";
+import AddEditNoteDialog from "./AddEditNoteDialog";
 
 // Creating interface bwcause we want to pass note data
 interface NoteProps {
     note: NoteModel // note from prisma client
 }
-export default function Note({note}: NoteProps){
+export default function Note({ note }: NoteProps) {
+    const [showEditDialog, setShowEditDialog] = useState(false)
     // it will be the time now 
     const wasUpdated = note.updateAt > note.createdAt // will be true if we updated a note looks better
 
@@ -16,8 +20,11 @@ export default function Note({note}: NoteProps){
     ).toDateString() // to make it in human readable form
 
     // then we return the ui
-    return(
-        <Card>
+    return (
+        <div>
+            <Card className="cursor-pointer transition-shadow hover:shadow-lg"
+            onClick={()=> setShowEditDialog(true)}
+            >
             <CardHeader>
                 <CardTitle>{note.title}</CardTitle>
                 <CardDescription>
@@ -28,6 +35,12 @@ export default function Note({note}: NoteProps){
             <CardContent>
                 <p className="whitespace-pre-line">{note.content}</p>
             </CardContent>
-        </Card>
+            </Card>
+            <AddEditNoteDialog
+                open={showEditDialog}
+                setOpen={setShowEditDialog}
+                noteToEdit={note}
+            />
+            </div>
     )
 }

@@ -6,11 +6,11 @@ import { UserButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import {Plus} from "lucide-react"
 import { useState } from "react"
-import AddNoteDialog from "@/components/AddNoteDialog"
+import AddEditNoteDialog from "@/components/AddEditNoteDialog"
 export default function NavBar(){
 
   // we want to render the message when we use Add Note button in navbar
-  const [showAddNoteDialog, setShowAddNoteDialog] = useState(false)
+  const [showAddEditNoteDialog, setShowAddEditNoteDialog] = useState(false)
 
 
 return (
@@ -28,7 +28,7 @@ return (
       elements: {avatarBox:{width:"2.5rem", height:"2.5rem"}}
     }}    
     />
-    <Button className="font-semibold" onClick={()=> setShowAddNoteDialog(true)}>
+    <Button className="font-semibold" onClick={()=> setShowAddEditNoteDialog(true)}>
       <Plus size={20} className="mr-2" />
       Add Note
     </Button>
@@ -36,7 +36,7 @@ return (
    </div>
   </div>
   </div>
-  <AddNoteDialog open={showAddNoteDialog} setOpen={setShowAddNoteDialog} />
+  <AddEditNoteDialog open={showAddEditNoteDialog} setOpen={setShowAddEditNoteDialog} />
 
   </div>
 )

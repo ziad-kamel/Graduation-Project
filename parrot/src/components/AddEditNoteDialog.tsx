@@ -7,13 +7,17 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import LoadingButton from "./ui/loading-button"
 import { useRouter } from "next/navigation"
-interface AddNoteDialogProps {
+import { Note } from "@prisma/client"
+import { useState } from "react"
+interface AddEditNoteDialogProps {
     open: boolean // deside if the dialog will be showm or not
     setOpen: (open: boolean) => void, // we will triger this callback when we click close button inside the dialog
+    noteToEdit?: Note
 }
 
 
-export default function AddNoteDialog({open, setOpen}: AddNoteDialogProps){
+export default function AddEditNoteDialog({open, setOpen, noteToEdit}: AddEditNoteDialogProps){
+    const [deleteInProgress, setDeleteInProgress] = useState(false)
     const router = useRouter()
 // this tells the hook form what the data we want in this form
 const form = useForm<CreateNoteSchema>({
@@ -21,16 +25,28 @@ const form = useForm<CreateNoteSchema>({
 
     // we made this because we made the lenght in zod schema min(1) to type the message we want
     defaultValues: {
-        title: "",
-        content: ""
+        title: noteToEdit?.title || "",
+        content: noteToEdit?.content || ""
     }
 }) // this component shadcn usese to get the form component useForm
 
 
   // this the data we excpect
  async function onSubmit(input:CreateNoteSchema) {
-    try {
-        // make a request to our backend route handler
+     try {
+         if (noteToEdit) {
+            const response = await fetch("/Mindspark/api/notes", {
+                method: "PUT", // To make a post request
+                body: JSON.stringify({
+                    id: noteToEdit.id,
+                    ...input
+                })
+            })
+            if (!response.ok) {
+                throw Error("Status code: " + response.status)
+            }
+         } else {
+             // make a request to our backend route handler
         const response = await fetch("/Mindspark/api/notes", {
             method: "POST", // To make a post request
             body: JSON.stringify(input)
@@ -39,8 +55,9 @@ const form = useForm<CreateNoteSchema>({
         if (!response.ok) {
             throw Error("Status code: " + response.status)
         }
-
         form.reset()
+        }
+        
         router.refresh() //refresh the server component
         setOpen(false) // to change the state
 
@@ -48,7 +65,30 @@ const form = useForm<CreateNoteSchema>({
         console.error(error)
         alert("Something went wrong. Please try again.")
     }
- }
+    }
+    
+    async function deleteNote() {
+        if (!noteToEdit) return 
+        setDeleteInProgress (true)
+        try {
+            const response = await fetch("/Mindspark/api/notes", {
+                method: "DELETE", // To make a delete request
+                body: JSON.stringify({
+                    id: noteToEdit.id,
+                })
+            })
+            if (!response.ok) {
+                throw Error("Status code: " + response.status)
+            }
+            router.refresh() //refresh the server component
+            setOpen(false) // to change the state
+        } catch (error) {
+            console.error(error)
+            alert("Something went wrong. Please try again.")
+        } finally {
+            setDeleteInProgress(false)
+        }
+}
 
  return (
     // open : if the dialog is opened and setopen trigered if we close the Dialog
@@ -57,7 +97,9 @@ const form = useForm<CreateNoteSchema>({
     <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
             <DialogHeader>
-                <DialogTitle>Add Note</DialogTitle>
+                 <DialogTitle>
+                     {noteToEdit?"Edit Note": "Add Note"}
+                </DialogTitle>
             </DialogHeader>
             <Form {...form}> 
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -89,8 +131,22 @@ const form = useForm<CreateNoteSchema>({
                         </FormItem>
                     )} //render the input field itself
                     />
-                    <DialogFooter>
-                        <LoadingButton type="submit" loading={form.formState.isSubmitting}>
+                     <DialogFooter className="gap-1 sm:gap-0">
+                         {noteToEdit && (
+                             <LoadingButton
+                                 variant="destructive"
+                                 loading={deleteInProgress}
+                                 disabled={form.formState.isSubmitting}
+                                 onClick={deleteNote}
+                                 type="button"
+                             >
+                                 Delete note
+                             </LoadingButton>
+                         )}
+                         <LoadingButton type="submit"
+                             loading={form.formState.isSubmitting}
+                             disabled={deleteInProgress}
+                         >
                             Submit
                         </LoadingButton>
                     </DialogFooter>

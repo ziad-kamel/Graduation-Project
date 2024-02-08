@@ -7,8 +7,12 @@ import { Button } from "@/components/ui/button"
 import {Plus} from "lucide-react"
 import { useState } from "react"
 import AddNoteDialog from "@/components/AddNoteDialog"
-export default function NavBar(){
+import ThemeToggleButton from "@/components/ThemeToggleButton"
 
+import {dark} from "@clerk/themes"
+import { useTheme } from "next-themes"
+export default function NavBar(){
+    const {theme} = useTheme()
   // we want to render the message when we use Add Note button in navbar
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false)
 
@@ -25,9 +29,13 @@ return (
    <div className="flex items-center gap-2">
     <UserButton afterSignOutUrl="/"
     appearance={{
+      baseTheme: (theme === "dark" ? dark: undefined),
       elements: {avatarBox:{width:"2.5rem", height:"2.5rem"}}
     }}    
     />
+
+    <ThemeToggleButton />
+
     <Button className="font-semibold" onClick={()=> setShowAddNoteDialog(true)}>
       <Plus size={20} className="mr-2" />
       Add Note

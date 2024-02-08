@@ -1,14 +1,18 @@
 "use client" // made this because we can only use useState in the client component default component in next.js is server component
-import Link from "next/link"
-import Image from "next/image"
 import logo from "@/assets/logo.png"
-import { UserButton } from "@clerk/nextjs"
-import { Button } from "@/components/ui/button"
-import {Plus} from "lucide-react"
-import { useState } from "react"
 import AddEditNoteDialog from "@/components/AddEditNoteDialog"
-export default function NavBar(){
+import ThemeToggleButton from "@/components/ThemeToggleButton"
+import { Button } from "@/components/ui/button"
+import { UserButton } from "@clerk/nextjs"
+import { Plus } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
 
+import { dark } from "@clerk/themes"
+import { useTheme } from "next-themes"
+export default function NavBar(){
+    const {theme} = useTheme()
   // we want to render the message when we use Add Note button in navbar
   const [showAddEditNoteDialog, setShowAddEditNoteDialog] = useState(false)
 
@@ -25,9 +29,13 @@ return (
    <div className="flex items-center gap-2">
     <UserButton afterSignOutUrl="/"
     appearance={{
+      baseTheme: (theme === "dark" ? dark: undefined),
       elements: {avatarBox:{width:"2.5rem", height:"2.5rem"}}
     }}    
     />
+
+    <ThemeToggleButton />
+
     <Button className="font-semibold" onClick={()=> setShowAddEditNoteDialog(true)}>
       <Plus size={20} className="mr-2" />
       Add Note

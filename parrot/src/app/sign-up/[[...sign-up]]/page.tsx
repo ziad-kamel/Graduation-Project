@@ -8,7 +8,7 @@ export const metadata:Metadata={
 export default function Page() {
   return (
   <div className="flex h-full items-center justify-center">
-   <SignUp appearance={{variables:{colorPrimary:"#0F172A"}}} /> 
+   <SignUp appearance={{variables:{colorPrimary:"#431147"}}} /> 
   </div>
   
   

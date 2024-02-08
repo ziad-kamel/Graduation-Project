@@ -1,8 +1,8 @@
 "use client"
 import { Note as NoteModel } from "@prisma/client";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { useState } from "react";
 import AddEditNoteDialog from "./AddEditNoteDialog";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 // Creating interface bwcause we want to pass note data
 interface NoteProps {
@@ -22,7 +22,7 @@ export default function Note({ note }: NoteProps) {
     // then we return the ui
     return (
         <div>
-            <Card className="cursor-pointer transition-shadow hover:shadow-lg"
+            <Card className="cursor-pointer transition-shadow hover:shadow-lg "
             onClick={()=> setShowEditDialog(true)}
             >
             <CardHeader>

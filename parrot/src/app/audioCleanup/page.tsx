@@ -1,161 +1,30 @@
 import React from "react";
-import { Inter } from "@next/font/google";
-
-const AudioCleanupHeader: React.FC = () => {
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+export default function audioCleanUpPage() {
   return (
-    <h1
-      style={{
-        fontFamily: "Roboto, sans-serif",
-        fontSize: "3rem",
-        fontWeight: "900",
-        color: "white",
-        textAlign: "center",
-        marginTop: "2rem",
-        marginBottom: "1rem",
-      }}
-    >
-      Audio Cleanup
-    </h1>
-  );
-};
-
-const ImportButton: React.FC = () => {
-  return (
-    <button
-      style={{
-        fontFamily: "jura",
-        fontSize: "2.5rem",
-        color: "white",
-        background:
-          "linear-gradient(90deg, #B059C8 0%, #9449AB 40%, #6C2D7A 70%, #562059 90%, #330F29 100%)",
-        height: "56px",
-        padding: "0 10px",
-        marginTop: "30px",
-        marginLeft: "37%",
-        marginRight: "25%",
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        border: "none",
-        borderRadius: "22px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        width: "27%",
-      }}
-    >
-      <span style={{ width: "100%" }}>Import your audio</span>
-    </button>
-  );
-};
-
-const NegativePrompt: React.FC = () => {
-  return (
-    <button
-      style={{
-        fontFamily: "Roboto, sans-serif",
-        fontSize: "1rem",
-        color: "GrayText",
-        backgroundPosition: "center",
-        backgroundColor: "white",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        padding: "10px 20px",
-        cursor: "pointer",
-        marginTop: "40px",
-        width: "27%",
-        height: "35px",
-        marginLeft: "37%",
-        marginRight: "25%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "none",
-        borderRadius: "22px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      Negative Prompt
-    </button>
-  );
-};
-
-const Cleanup: React.FC = () => {
-  return (
-    <button
-      style={{
-        fontFamily: "jura",
-        fontSize: "33px",
-        color: "white",
-        background:
-          "linear-gradient(90deg, #B059C8 0%, #9449AB 40%, #6C2D7A 70%, #562059 90%, #330F29 100%)",
-        height: "40px",
-        // padding: "5 5px",
-        padding: "20px",
-        marginLeft: "43%",
-        marginRight: "40%",
-        marginTop: "40px",
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        border: "none",
-        borderRadius: "20px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        width: "15%",
-      }}
-    >
-      <span style={{ width: "100%" }}>CLEANUP</span>
-    </button>
-  );
-};
-
-const Cleanedaudio: React.FC = () => {
-  return (
-    <button
-      style={{
-        fontFamily: "Roboto, sans-serif",
-        fontSize: "1rem",
-        color: "black",
-        backgroundColor: "white",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        padding: "5px 10px",
-        cursor: "pointer",
-        marginTop: "70px",
-        marginLeft: "43%",
-        marginRight: "25%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "none",
-        borderRadius: "22px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        width: "15%",
-      }}
-    >
-      Cleaned audio
-    </button>
-  );
-};
-
-const AudioCleanupPage = () => {
-  return (
-    <div
-      style={{
-        paddingTop: "70px",
-        marginTop: "30px",
-        marginLeft: "150px",
-      }}
-    >
-      <AudioCleanupHeader />
-      <ImportButton />
-      <NegativePrompt />
-      <Cleanup />
-      <Cleanedaudio />
-      {}
+    <div className="flex flex-row h-full">
+      <div className="w-72 "></div>
+      <div className="w-full p-14">
+        <div className="flex flex-col justify-between items-center h-full">
+          <h1 className="text-5xl font-bold text-white font-jura">
+            Audio Cleanup
+          </h1>
+          <Button className="w-96 h-14 rounded-[2rem] font-jura text-3xl bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl  ">
+            import your audio
+          </Button>
+          <Input
+            placeholder="Negative Prompt"
+            className="w-[35rem] text-center rounded-[2rem] bg-[#D9D9D9]"
+          />
+          <Button className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl  ">
+            CleanUp
+          </Button>
+          <div className="w-10/12 h-1/3 rounded-md flex justify-center items-center bg-[#c3c3c38c]">
+            Results
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default AudioCleanupPage;
+}

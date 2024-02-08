@@ -1,7 +1,8 @@
 import Note from "@/components/Note";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import prisma from "@/lib/db/prisma";
-import { auth } from "@clerk/nextjs"
-import { Metadata } from "next"
+import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 
 
 export const metadata:Metadata={
@@ -16,7 +17,10 @@ if(!userId) throw Error("userId undefined");
 const allNotes = await prisma.note.findMany({where:{userId}})
 
     return( 
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="h-[35rem] ">
+        <ScrollArea className="h-full">
+            <div className="w-full grid gap-3 sm:grid-cols-2 lg:grid-cols-3 ">
+
         {allNotes.map((note) => (
             <Note note={note} key={note.id}/> // this note component we created that expect note and unique key
         ))}
@@ -25,6 +29,8 @@ const allNotes = await prisma.note.findMany({where:{userId}})
                 {"You don't have any notes yet. Why don't you create one?"}
             </div>
         )}
+            </div>
+        </ScrollArea>
     
     </div>
     )

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import  Link from "next/link";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
                 </Link>
                 <Link  href="/sign-up">
                 <Button variant="outline" style={{borderRadius:"3rem", backgroundColor: "#54174E", color:"white", fontSize:"2rem", width:"16rem", height:"3.5rem", fontFamily:"jura", border:"none"}}>Register</Button>
-                </Link>                  
+                </Link>
               </div>
             </div>
           </div>

@@ -23,22 +23,28 @@ export default function AIChatBox({open, onClose}: AIChatBoxProps) {
         setMessages,
         isLoading,
         error
-    } = useChat();
+    } = useChat({api:"/Mindspark/api/chat"});
 
     const inputRef = useRef<HTMLInputElement>(null)
     const scrollRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        if(scrollRef.current) {
+        if (error) {
+            console.error("Error from server:", error);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages]);
 
     useEffect(() => {
-        if(open) {
+        if (open) {
             inputRef.current?.focus();
         }
-    },[open]);
+    }, [open]);
 
     const lastMessageIsUser = messages[messages.length - 1]?.role === "user" 
 
@@ -92,7 +98,7 @@ export default function AIChatBox({open, onClose}: AIChatBoxProps) {
                 type="button"
                 onClick={() => setMessages([])}
                 >
-                    <Trash />
+                    <Trash className="m-2" />
                 </Button>
                 <Input 
                 value={input}

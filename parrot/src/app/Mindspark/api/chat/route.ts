@@ -29,7 +29,7 @@ export async function POST(req:Request) {
         // To go to pinecone and get the meassages that is similar to our vector embedding ones (The meaning are similar)
         const vectorQueryResponse = await notesIndex.query({ // pinecone we exported
             vector: embedding,
-            topK: 4, // this topk the result we want to return from chatgpt if we want more we will increase it but the free tier we want to ask about 4 different notes
+            topK: 1, // this topk the result we want to return from chatgpt if we want more we will increase it but the free tier we want to ask about 4 different notes
             filter: {userId} // we want to filter it with this particular user
         })
 
@@ -46,7 +46,7 @@ export async function POST(req:Request) {
         console.log("Relevant notes found: ", relevantNotes)
 
         const systemMessage: ChatCompletionMessage ={
-            role:"system", // For instructions
+            role:"assistant", // For instructions
             content: "You are an intelligent note-taking app. You answer the user's question based on their existing notes." + // each message needs a contenet
             "The relevant notes for this query are:\n" +
             relevantNotes.map((note) => `Title: ${note.title}\n\nContent:\n${note.content}`).join("\n\n")

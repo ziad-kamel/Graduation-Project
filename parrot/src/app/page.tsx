@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import  Link from "next/link";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -9,19 +9,19 @@ export default function Home() {
 
         <Image src={'/logo1.png'} alt="parrot pic" width={384} height={384} draggable={false}/>
 
-        <div className="flex flex-col justify-evenly" style={{width: "45rem"}}>
+        <div className="flex flex-col justify-evenly w-[45rem]">
           <div className="flex justify-center">
-            <h1 style={{fontSize:"2.5rem", color:"white", fontFamily: "jura"}}>Explore the power of Al with Audio</h1>
+            <h1 className="text-white font-jura text-[2.5rem]">Explore the power of Al with Audio</h1>
           </div>
           
           <div className="flex justify-center">
-            <div className="flex flex-row justify-center space-y-8 h-56" style={{width: "27rem", borderRadius:"2rem", backgroundColor:"#787878d6"}}>
+            <div className="flex flex-row justify-center space-y-8 w-[27rem] h-56 rounded-[2rem] bg-[#787878d6]">
               <div className="flex flex-col justify-evenly">
-                <Link  href="/sign-in">
-                <Button  variant="outline" style={{borderRadius:"3rem", backgroundColor: "#54174E", color:"white", fontSize:"2rem", width:"16rem", height:"3.5rem", fontFamily:"jura", border:"none"}}>Explore</Button>
+                <Link href="/home">
+                <Button variant="outline" className="w-64 h-[3.5rem] text-white text-[2rem] font-jura rounded-[3rem] bg-[#54174E] border-none hover:bg-white hover:text-[#54174E]">Explore</Button>
                 </Link>
-                <Link  href="/sign-up">
-                <Button variant="outline" style={{borderRadius:"3rem", backgroundColor: "#54174E", color:"white", fontSize:"2rem", width:"16rem", height:"3.5rem", fontFamily:"jura", border:"none"}}>Register</Button>
+                <Link href="/sign-up">
+                <Button variant="outline" className="w-64 h-[3.5rem] text-white text-[2rem] font-jura rounded-[3rem] bg-[#54174E] border-none hover:bg-white hover:text-[#54174E]">Register</Button>
                 </Link>
               </div>
             </div>

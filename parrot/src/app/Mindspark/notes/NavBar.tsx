@@ -9,9 +9,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import AIChatButton from "@/components/AIChatButton";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
-import AIChatButton from "@/components/AIChatButton";
+
 export default function NavBar() {
   const { theme } = useTheme();
   // we want to render the message when we use Add Note button in navbar
@@ -21,12 +22,13 @@ export default function NavBar() {
     <div>
       <div className="p-4 shadow">
         <div className="max-w-7xl m-auto flex flex-wrap gap-3 items-center justify-between">
-          <Link href="/notes" className="flex items-center gap-1">
+          <Link href="/Mindspark/notes" className="flex items-center gap-1" draggable={false}>
             <Image
               src={logo}
               alt="MindSpark logo"
               width={40}
               height={40}
+              draggable={false}
             ></Image>
             <span className="font-medium text-white">MindSpark</span>
           </Link>

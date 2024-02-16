@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export const metadata:Metadata={
+  title:"Welcome",
+}
+
+export default function WelcomePage() {
   return (
     <div className="flex flex-row items-center justify-center h-full">
       <div className="flex flex-row w-9/12 justify-between">

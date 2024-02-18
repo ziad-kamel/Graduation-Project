@@ -1,5 +1,4 @@
 
-
 // Import necessary modules and components
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,12 +22,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { TTSModel, TTSRequest, TTS_MODELS } from '../lib/types/TTSTypes';
 import { Textarea } from "./ui/textarea";
-import SOUND_MODELS, { SoundModel } from "@/lib/constants";
-
 // Define the validation schema for the form fields
 const FormSchema = z.object({
-  soundModel: z.string({
+  TTSModel: z.string({
     required_error: "Please select a Hugging Face sound model to use.",
   }),
   text: z.string({
@@ -37,12 +35,12 @@ const FormSchema = z.object({
 });
 
 // Define the props interface for the GenerateSoundForm component
-interface GenerateSoundFormProps {
-  handleGetAudio: (data: CreateSoundRequest) => void;
+interface TextToSpeechFormProps {
+  handleGetAudio: (request: TTSRequest) => void;
 }
 
 // Main component function
-export function GenerateSoundForm({ handleGetAudio }: GenerateSoundFormProps) {
+export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
   // State for tracking form submission status
   const [formSubmitting, setFormSubmitting] = useState<boolean>(false);
 
@@ -56,8 +54,8 @@ export function GenerateSoundForm({ handleGetAudio }: GenerateSoundFormProps) {
     setFormSubmitting(true);
     
     // Prepare the sound request object
-    const soundRequest: CreateSoundRequest = {
-      modelUrl: data.soundModel,
+    const soundRequest: TTSRequest = {
+      modelUrl: data.TTSModel,
       text: data.text,
     };
     
@@ -68,51 +66,26 @@ export function GenerateSoundForm({ handleGetAudio }: GenerateSoundFormProps) {
   }
 
   return (
-    <div className="ml-8 mr-8">
+    <div className="w-1/2">
+
       {/* Form component that uses react-hook-form */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Form field for selecting the sound model */}
-          <FormField
-            control={form.control}
-            name="soundModel"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Sound Model</FormLabel>
-                {/* Select component for choosing a sound model */}
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  disabled={formSubmitting}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a verified  to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {/* Map through available sound models */}
-                    {SOUND_MODELS.map((model: SoundModel, index: number) => (
-                      <SelectItem key={`${model.name}-${index}`} value={model.url}>
-                        {model.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  This model will generate your sound.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-between h-80">
+          
+          
           {/* Form field for entering the text */}
           <FormField
             control={form.control}
             name="text"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Text</FormLabel>
+                <FormLabel>
+                  Text
+                  
+                  <FormDescription>
+                    The text used to convert to sound.
+                  </FormDescription>
+                </FormLabel>
                 <FormControl>
                   {/* Textarea component for entering text */}
                   <Textarea
@@ -120,19 +93,60 @@ export function GenerateSoundForm({ handleGetAudio }: GenerateSoundFormProps) {
                     rows={6}
                     placeholder="Enter your text here..."
                     {...field}
+                    
                   />
                 </FormControl>
-                <FormDescription>
-                  The text used to convert to sound.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* Submit button */}
-          <Button type="submit" disabled={formSubmitting} variant={"default"}>
-            Submit
-          </Button>
+
+
+          <div className="flex justify-between items-center">
+          {/* Form field for selecting the sound model */}
+          <FormField
+            control={form.control}
+            name="TTSModel"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Sound Model
+                  
+                  <FormDescription>
+                    This model will generate your sound.
+                  </FormDescription>
+                </FormLabel>
+                {/* Select component for choosing a sound model */}
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  disabled={formSubmitting}
+
+                >
+                  <FormControl>
+                    <SelectTrigger className="rounded-[30px] w-3/5">
+                      <SelectValue placeholder="Select a verified  to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {/* Map through available sound models */}
+                    {TTS_MODELS.map((model: TTSModel, index: number) => (
+                      <SelectItem key={`${model.name}-${index}`} value={model.url}>
+                        {model.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+            {/* Submit button */}
+            <Button type="submit" disabled={formSubmitting} className="w-40 h-14 rounded-[2rem] text-2xl text-white font-jura bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl" >
+              Generate
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

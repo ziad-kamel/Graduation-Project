@@ -34,7 +34,7 @@ export default function HomePage() {
                                     <HomeCustomeButton btnText="Audio Generation" icon= {<FileAudio color="#4d1557" size={'2rem'}/>}/>
                                 </Link>
 
-                                <Link href={"/"}>
+                                <Link href={"/text_to_speech"}>
                                     <HomeCustomeButton btnText="Text To Speech" icon= {<Speech color="#4591a9" size={'2rem'}/>}/>
                                 </Link>
                             </div>

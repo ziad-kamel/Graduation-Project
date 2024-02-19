@@ -134,6 +134,5 @@ function ChatMessage({message: {role,content }}: {message:Pick<Message, "role" |
             className="ml-2 rounded-full w-10 h-10 object-cover"
             />
         )}
-
     </div>
 }

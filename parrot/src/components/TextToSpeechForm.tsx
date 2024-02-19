@@ -70,7 +70,7 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
 
       {/* Form component that uses react-hook-form */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-between h-80">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-between h-72">
           
           
           {/* Form field for entering the text */}
@@ -82,9 +82,6 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                 <FormLabel>
                   Text
                   
-                  <FormDescription>
-                    The text used to convert to sound.
-                  </FormDescription>
                 </FormLabel>
                 <FormControl>
                   {/* Textarea component for entering text */}
@@ -96,6 +93,9 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                     
                   />
                 </FormControl>
+                  <FormDescription>
+                    The text used to convert to sound.
+                  </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -112,9 +112,6 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                 <FormLabel>
                   Sound Model
                   
-                  <FormDescription>
-                    This model will generate your sound.
-                  </FormDescription>
                 </FormLabel>
                 {/* Select component for choosing a sound model */}
                 <Select
@@ -124,7 +121,7 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
 
                 >
                   <FormControl>
-                    <SelectTrigger className="rounded-[30px] w-3/5">
+                    <SelectTrigger className=" ">
                       <SelectValue placeholder="Select a verified  to display" />
                     </SelectTrigger>
                   </FormControl>
@@ -137,6 +134,9 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
+                <FormDescription>
+                  This model will generate your sound.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

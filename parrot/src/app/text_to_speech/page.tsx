@@ -4,50 +4,33 @@ import Loader from "@/components/Loader";
 import { TextToSpeechForm } from "@/components/TextToSpeechForm";
 import { TTSRequest } from "@/lib/types/TTSTypes";
 import { useState } from "react";
+import useTextToSpeech from "../hooks/usePostTextToSpeech";
 
 /**
  * The main view component for generating sound using a pre-trained model.
  */
 export default function GenerateSoundView() {
-  // State to manage loading status and audio URL
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // State to manage audio URL
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
+  //use the custom hook to call the text-to-speech API
+  const {loading, textToSpeech} = useTextToSpeech();
+  
   /**
    * Handles the process of fetching audio data using the provided request.
    * @param {TTSRequest} request - The request containing model URL and text.
    */
   const handleGetAudio = async (request: TTSRequest) => {
-    setIsLoading(true);
-
-    try {
-      // Make a POST request to the server's API endpoint to generate audio
-      const response = await fetch("/text_to_speech/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          input: request.text,
-          modelUrl: request.modelUrl,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch audio data.");
+    textToSpeech(request.modelUrl, request.text)
+    .then((response) => {
+      if (!response) {
+        alert('Error: No response received');
       }
-
-      // Get the audio data as an ArrayBuffer
-      const data = await response.arrayBuffer();
-
-      // Convert ArrayBuffer to Blob and create a URL for the audio
-      const blob = new Blob([data], { type: "audio/mpeg" });
-      const audioUrl = URL.createObjectURL(blob);
-      setAudioUrl(audioUrl);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
+      setAudioUrl(response);
+    })
+    .catch((error) => {
+      alert('Error: ' + error.message);
+    })
   };
 
   return (
@@ -62,7 +45,7 @@ export default function GenerateSoundView() {
           <TextToSpeechForm handleGetAudio={handleGetAudio}/>
 
           <div className="w-full h-24 flex justify-center items-center">
-            {isLoading ? (
+            {loading ? (
               // Show loader when fetching audio data
               <Loader color="#FFFFFF"/>
             ) : (

@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
@@ -26,9 +27,10 @@ import {
   STT_Task,
   STTtask,
 } from "@/lib/types/STTStypes";
-import { Copy } from "lucide-react";
+import { Copy, CopyCheck } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import usePostSpeechToText from "../hooks/usePostSpeechToText";
 import useUpload from "../hooks/useUpload";
 
 //define the custom validation schema for the form filed
@@ -47,37 +49,63 @@ const FormSchema = z.object({
 });
 
 export default function SpeechToTextPage() {
+  /* states */
   //for setting the file after gaping it from the input filed
   const [audioFile, setAudioFile] = useState<File>();
 
   //to handel the disabling of the fields
   const [isSubmiting, setIsSubmiting] = useState<boolean>(false);
+  
+  //to show response text to user
+  const [apiResponseText, setApiResponseText] = useState();
 
-  //to set the uploaded audio URL to call the model with it {now displaying it for testing the functionality}
-  const [audioURL, setAudioURL] = useState<string>("");
+  //to handel the copy button functionality
+  const [copied, setCopied] = useState<boolean>(false);
 
+  
+  /* hooks */
   //the custome hook to upload the audio file to edgeStore site
-  const { loading, uploadFile } = useUpload();
+  const { uploading, uploadProgress, uploadFile } = useUpload();
+  
+  //the custome hook to send the generation request to api
+  const { isloading, speechToText } = usePostSpeechToText();
+
 
   //define the zod custom validation schema for the form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
+
   //define the function to handle the form submit event
   const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => {
     setIsSubmiting(true);
-    await uploadFile(audioFile, { temporary: true })
-      .then((uploadedFileURL) => {
-        setAudioURL(uploadedFileURL);
-        console.log(`Uploaded File URL : ${uploadedFileURL}`);
+    setCopied(false);
+
+    // make a request to edgeStore API with uploadFile hook to store the audio in there and get its URL
+    // the resulted URL will be sent as part of SpeechToText model request
+    const uploadedFileURL = await uploadFile(audioFile, { temporary: true })
+      .then((responseFileURL) => {
+        return responseFileURL
       })
       .catch((error) => {
-        console.log(`Error in uploading the file : ${error}`);
+        alert(`Error in uploading the file : ${error.message}`);
       });
-    console.log(`Submitted values : `, fromValues);
+      
+      //destructure the response json object value
+      const {apiOutput} = await speechToText(uploadedFileURL, fromValues.task, fromValues.language);
+
+      setApiResponseText(apiOutput.text);
+
     setIsSubmiting(false);
   };
+
+  //handel the copy to clipboard functionality
+  const handelCopy = () => {
+    // @ts-ignore
+    navigator.clipboard.writeText(document.getElementById("resultText")?.textContent)
+    setCopied(true);
+  }
 
   return (
     <div className="flex flex-row h-full">
@@ -186,29 +214,32 @@ export default function SpeechToTextPage() {
             </form>
           </Form>
 
+          
           <div className="flex flex-col gap-3 items-center w-1/2 h-1/3 bg-[#c3c3c38c] rounded-2xl ">
             <div className="flex w-full flex-row-reverse">
-              <Button variant={"ghost"} className="m-3">
-                <Copy />
+              <Button variant={"ghost"} className="m-2" onClick={handelCopy}>
+                {copied ? <CopyCheck/> : <Copy />}
               </Button>
             </div>
-            Results
-            {loading ? (
-              <Loader color="#000000" />
-            ) : (
-              <>
-                {audioURL && (
-                  <audio controls>
-                    <source
-                      id="audioSource"
-                      type="audio/flac"
-                      src={audioURL!}
-                    />
-                  </audio>
-                )}
-              </>
+            
+            {/* if the uploading process is active then display the uploading progress bar
+                else if the api model process is active then display a loader
+                else display the result test or {a static text for none of the process is active} */}
+            {uploading ?
+              (<>
+                  Uploading ...
+                  <Progress value={uploadProgress} className="w-9/12"/>
+                </>) :
+                (<>
+                  {isloading ?
+                    (<>
+                      Preparing your text ...
+                      <Loader color="#FFFFFF"/>
+                    </>) : (<h1 id="resultText">{apiResponseText || "This is an Example of the results"}</h1>)}
+                </>
             )}
           </div>
+
         </div>
       </div>
     </div>

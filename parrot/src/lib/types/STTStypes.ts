@@ -31,3 +31,10 @@ export const STT_Language: STTLanguage[] = [
     {audioLanguage:"spanish"},
     {audioLanguage:"turkish"},
 ];
+
+
+export interface customeInput {
+    audioURL: string | void,
+    taskName: string,
+    audioLanguage: string,
+}

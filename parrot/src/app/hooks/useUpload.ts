@@ -4,28 +4,31 @@ import { useState } from "react";
 
 // upload files to edgeStore
 const useUpload = () => {
-    const [loading, setIsLoading] = useState(false);
+    const [uploading, setIsUpLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
     const {edgestore} = useEdgeStore();
 
     const uploadFile = async (fileToUpload: File | undefined, customeOptions: UploadOptions)=> {
         //set the loader state and call edgestore.upload with a callback function that sets the audio url when successful
-        setIsLoading(true);
+        setIsUpLoading(true);
 
         if(fileToUpload){
-            return await edgestore.publicFiles.upload({file: fileToUpload, options: customeOptions})
+            return await edgestore.publicFiles.upload({file: fileToUpload, options: customeOptions, onProgressChange: (progress) => {
+                setUploadProgress(progress)
+            }})
             .then((res)=> {
-                setIsLoading(false);
+                setIsUpLoading(false);
                 return res.url
             })
             .catch((error) => {
                 console.log(`Error when trying to upload the file ${error}`)
-                setIsLoading(false);
+                setIsUpLoading(false);
                 return error.message;
             })
         }
     };
 
-    return {loading, uploadFile}
+    return {uploading, uploadProgress, uploadFile}
 }
 
 export default useUpload;

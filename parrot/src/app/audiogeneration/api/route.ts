@@ -1,14 +1,16 @@
 import Replicate from "replicate";
 
+const replicate = new Replicate({
+    auth: process.env.REPLICATE_API_TOKEN,
+});
+
 export async function POST(request: Request) {
     try {
-        const replicate = new Replicate({
-            auth: process.env.REPLICATE_API_TOKEN,
-        });
         
         const requestBody = await request.json();
         const {model_version, prompt, duration, normalization_strategy} = requestBody;
-    
+        
+        console.log(requestBody);
         if(!model_version){
             throw new Error("model version not specified")
         }
@@ -38,11 +40,11 @@ export async function POST(request: Request) {
         );
         console.log(output);
     
-        console.log(requestBody);
         
         return Response.json({output});
-    } catch (error) {
         // @ts-ignore
-        return Response.json({Error_message: error.message})
+    } catch (error: Error) {
+        console.log("Error from API: ", error.message);
+        throw Error(error.message)
     }
 }

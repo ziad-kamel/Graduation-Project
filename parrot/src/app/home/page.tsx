@@ -1,5 +1,5 @@
 import HomeCustomeButton from "@/components/HomeCustomeButton";
-import { FileAudio, ImageIcon, Paintbrush, Speech } from "lucide-react";
+import { FileAudio, Paintbrush, Speech, Text } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,8 +25,8 @@ export default function HomePage() {
                                     <HomeCustomeButton btnText="Audio Cleanup" icon= {<Paintbrush color="#1B8D7F"  size={'2rem'}/>}/>
                                 </Link>
 
-                                <Link href={"/"}>
-                                    <HomeCustomeButton btnText="Image To Audio" icon= {<ImageIcon color="#bb943e" size={'2rem'}/>}/>
+                                <Link href={"/speechToText"}>
+                                    <HomeCustomeButton btnText="Speech To Text" icon= {<Speech color="#bb943e" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                             <div className="flex flex-row justify-around">
@@ -35,7 +35,7 @@ export default function HomePage() {
                                 </Link>
 
                                 <Link href={"/text_to_speech"}>
-                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Speech color="#4591a9" size={'2rem'}/>}/>
+                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Text color="#4591a9" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                         </div>

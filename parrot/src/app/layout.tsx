@@ -1,9 +1,10 @@
+import { EdgeStoreProvider } from "@/lib/edgestore";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import "./globals.css";
-import {ClerkProvider} from "@clerk/nextjs"
 import { ThemeProvider } from "./ThemeProvider";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class">
-        {children}
+          <EdgeStoreProvider>
+            {children}
+          </EdgeStoreProvider>
         </ThemeProvider>
         <Image src={'/logo.png'} alt="parrot pic" draggable={false} width={80} height={80} style={{position:"fixed", right:"1rem" , bottom:"1rem"}}/>
 

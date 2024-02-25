@@ -250,4 +250,5 @@ export const selectFile = (
     const folder = decodeURIComponent(result.data[0].replace("file://", ""));
     callback(folder);
   }
+  alert(result.data[0])
 };

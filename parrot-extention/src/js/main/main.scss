@@ -1,1 +1,94 @@
 @import "../variables.scss";
+
+
+.app {
+    background-image: linear-gradient($lightBG , $darkBG );
+    // width and heght to fill the screen
+    width: 100%;
+    min-height: 100vh;
+    
+}
+
+
+// HOME PAGE CSS
+
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0rem 2rem 0rem;
+    > button {
+        margin: 0rem 1rem 0rem 1rem;
+    }
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.button-group > div {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.button-group > div > button {
+    margin: 0rem 1rem 0rem 1rem;
+    width: 50%;
+}
+
+
+// SIDE BAR CSS
+
+.sidebar {
+    background-image: linear-gradient($darkSidebar, $lightSidebar);
+    // display on the left of the screen
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 15%;
+    padding: 1rem;
+    // round the corners
+    border-radius: 10px;
+}
+
+.sidebar > div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5rem;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+.sidebar-button {
+    // linear gradient for the buttons from right to left
+    background-image: linear-gradient(to left, $lightSidebar, $darkSidebar);
+    // drop shadow
+    box-shadow: 0px 0px 10px 0px $darkSidebar;
+    // round the corners
+    border-radius: 100px;
+    // font size
+    font-size: 12pt;
+    transition: .5s ease-out;  
+    cursor:pointer; 
+}
+
+.sidebar-button:hover {
+    // move the background above for 100px
+    background-position: 100px;
+    
+}
+
+.sidebar-buttons > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.selected-sidebutton {
+    // linear gradient for the buttons from right to left
+    background-image: linear-gradient(to left, $darkSidebar, $lightSidebar);
+}
+
+.hidden {
+    display: none;
+}

@@ -8,16 +8,11 @@
     openLinkInBrowser,
     subscribeBackgroundColor,
     evalTS,
+    selectFile,
   } from "../lib/utils/bolt";
 
-  import viteLogo from "../assets/vite.svg";
-  import svelteLogo from "../assets/svelte.svg";
-  import tsLogo from "../assets/typescript.svg";
-  import sassLogo from "../assets/sass.svg";
-
-  import nodeJs from "../assets/node-js.svg";
-  import adobe from "../assets/adobe.svg";
-  import bolt from "../assets/bolt-cep.svg";
+  import Sidebar from "./components/Sidebar.svelte";
+  import Header from "./components/Header.svelte";
 
   import "../index.scss";
   import "./main.scss";
@@ -69,62 +64,100 @@
   });
 </script>
 
-<div class="app" style="background-color: {backgroundColor};">
-  <header class="app-header">
-    <img src={bolt} class="icon" alt="" />
-    <div class="stack-icons">
-      <div>
-        <img src={viteLogo} alt="" />
-        Vite
-      </div>
-      +
-      <div>
-        <img src={svelteLogo} alt="" />
-        Svelte
-      </div>
-      +
-      <div>
-        <img src={tsLogo} alt="" />
-        TypeScript
-      </div>
-      +
-      <div>
-        <img src={sassLogo} alt="" />
-        Sass
-      </div>
-    </div>
-    <div class="button-group">
-      <button on:click={() => (count += 1)}>Count is: {count}</button>
-      <button on:click={nodeTest}>
-        <img class="icon-button" src={nodeJs} alt="" />
-      </button>
-      <button on:click={jsxTest}>
-        <img class="icon-button" src={adobe} alt="" />
-      </button>
-      <button on:click={jsxTestTS}>Ts</button>
-    </div>
+<script lang='ts' context="module">
 
-    <p>Edit <code>main.svelte</code> and save to test HMR updates.</p>
-    <p>
-      <button
-        on:click={() =>
-          openLinkInBrowser("https://github.com/hyperbrew/bolt-cep")}
-      >
-        Bolt Docs
-      </button>
-      |
-      <button on:click={() => openLinkInBrowser("https://svelte.dev/docs")}>
-        Svelte Docs
-      </button>
-      |
-      <button
-        on:click={() =>
-          openLinkInBrowser("https://vitejs.dev/guide/features.html")}
-      >
-        Vite Docs
-      </button>
-    </p>
-  </header>
+  
+  enum TabNames {
+    Cleanup = "Cleanup",
+    MotionSFX = "Motion",
+    GenerativeAudio = "Generative",
+    TTS = "TTS"
+  }
+
+  function hideAllTabs(){
+    const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
+    cleanup.classList.add('hidden');
+    const motion = document.querySelector('.motion-main') as HTMLElement;
+    motion.classList.add('hidden');
+    const generative = document.querySelector('.generative-main') as HTMLElement;
+    generative.classList.add('hidden');
+    const tts = document.querySelector('.tts-main') as HTMLElement;
+    tts.classList.add('hidden');
+    
+  }
+
+  export const handleTabs = (tab : string) => {
+    // evalTS("helloStr", tab).then((res) => {
+    //   console.log(res);
+    // });
+    hideAllTabs()
+    if (tab === "Home"){
+      const nav = document.querySelector('.sidebar') as HTMLElement;
+      //remove the :hidden" class from the nav
+      nav.classList.add('hidden');
+      // get the heafer with class app-header
+      const header = document.querySelector('.app-header') as HTMLElement;
+      //add the "hidden" class to the header
+      header.classList.remove('hidden');
+      return;
+    }
+    // get the nav with class sidebar
+    const nav = document.querySelector('.sidebar') as HTMLElement;
+    //remove the :hidden" class from the nav
+    nav.classList.remove('hidden');
+    // get the heafer with class app-header
+    const header = document.querySelector('.app-header') as HTMLElement;
+    //add the "hidden" class to the header
+    header.classList.add('hidden');
+    // create a switch statement to handle the tabs
+    switch(tab){
+      case TabNames.Cleanup:
+        hideAllTabs();
+        const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
+        cleanup.classList.remove('hidden');
+        break;
+      case TabNames.MotionSFX:
+        hideAllTabs();
+        const motion = document.querySelector('.motion-main') as HTMLElement;
+        motion.classList.remove('hidden');
+        break;
+      case TabNames.GenerativeAudio:
+        hideAllTabs();
+        const generative = document.querySelector('.generative-main') as HTMLElement;
+        generative.classList.remove('hidden');
+        break;
+      case TabNames.TTS:
+        hideAllTabs();
+        const tts = document.querySelector('.tts-main') as HTMLElement;
+        tts.classList.remove('hidden');
+        break;
+      default:
+        console.log("default");
+    }
+  }
+
+</script>
+
+<div class="app" >
+  <Header />
+  <Sidebar />
+  <main class="app-main">
+    <div class = "cleanup-main hidden">
+      <h1>Audio Cleanup</h1>
+      <button on:click={jsxTest}>Import Audio</button>
+      <textarea></textarea>
+      <button on:click={nodeTest}>CLEAN</button>
+    </div>
+    <div class = "motion-main hidden">
+      <h1>Motion SFX</h1>
+    </div>
+    <div class = "generative-main hidden">
+      <h1>Generative Audio</h1>
+    </div>
+    <div class = "tts-main hidden">
+      <h1>TTS</h1>
+    </div>
+  </main>
 </div>
 
 <style>

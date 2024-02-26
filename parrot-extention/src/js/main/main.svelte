@@ -4,17 +4,15 @@
   import {
     csi,
     evalES,
-    evalFile,
-    openLinkInBrowser,
-    subscribeBackgroundColor,
     evalTS,
-    selectFile,
+    subscribeBackgroundColor
   } from "../lib/utils/bolt";
 
-  import Sidebar from "./components/Sidebar.svelte";
   import Header from "./components/Header.svelte";
+  import Sidebar from "./components/Sidebar.svelte";
 
   import "../index.scss";
+  import GenerativeAudio from "./components/GenerativeAudio/GenerativeAudio.svelte";
   import "./main.scss";
 
   let count: number = 0;
@@ -136,7 +134,11 @@
     }
   }
 
+
 </script>
+
+<link rel="stylesheet" href="GenerativeAudio.scss">
+
 
 <div class="app" >
   <Header />
@@ -153,7 +155,9 @@
     </div>
     <div class = "generative-main hidden">
       <h1>Generative Audio</h1>
+      <GenerativeAudio/>
     </div>
+
     <div class = "tts-main hidden">
       <h1>TTS</h1>
     </div>

@@ -8,8 +8,7 @@ const replicate = new Replicate({
       try{
           // Parse the request body as JSON
           const requestBody = await request.json();
-          
-  console.log("requestBody")
+
           // destructure the data the parsed request body
           const inputPrompt = requestBody.input
   
@@ -37,7 +36,7 @@ const replicate = new Replicate({
                 }
               }
         );
-          console.log(apiOutput);
+            console.log(apiOutput);
   
           // return the model results to the user
           return new Response(JSON.stringify({apiOutput}), {status: 200});

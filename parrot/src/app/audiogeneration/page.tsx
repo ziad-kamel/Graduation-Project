@@ -20,9 +20,6 @@ const FormSchema = z.object({
 
 export default function audioGenerationpPage() {
 
-  //for setting the prompt after gaping it from the input field
-  const [inputText, setInputText] = useState<String>();
-
   //to show response Audio URL
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
@@ -30,21 +27,14 @@ export default function audioGenerationpPage() {
   //the custome hook to send the generation request to api
   const { isloading, audioGeneration } = usePostAudioGeneration();
 
-  console.log(audioGeneration)
-  console.log(isloading)
-
   //define the zod custom validation schema for the form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-  //  async function POST() {
-  //   const { apiOutput } = await audioGeneration();
-  // }
-  // POST()
   
   //define the function to handle the form submit event
   const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => { 
-    console.log("on submit")
+
     //destructure the response json object value
     const { apiOutput } = await audioGeneration(fromValues.prompt);
     
@@ -76,9 +66,6 @@ export default function audioGenerationpPage() {
                         type="text"
                         placeholder="Let me know what's on your mind"
                         className="w-[35rem] text-center rounded-[2rem] bg-[#D9D9D9] text-black m-5"
-                        onChange={(e) => {
-                        setInputText(e.target.value)
-                        }}
                       />
                     </FormControl>
                   </FormItem>

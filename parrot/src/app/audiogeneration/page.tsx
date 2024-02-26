@@ -1,46 +1,55 @@
 "use client"
-import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Prediction } from "replicate";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import Loader from "@/components/Loader";
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import usePostAudioGeneration from "../hooks/usePostAudioGeneration";
+
+//define the custom validation schema for the form filed
+const FormSchema = z.object({
+  prompt: z.string({
+    required_error: "input field is required",
+  })
+})
 
 export default function audioGenerationpPage() {
 
-  const [prediction, setPrediction] = useState<Prediction | null>(null);
-  
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const response = await fetch("/audiogeneration/api/audioldmPredictions/", {
-      method: "POST",
-      body: new FormData(e.currentTarget),
-    });
-    console.log(response)
-  
-    let prediction = await response.json();
-    if (response.status !== 201) {
-      console.error(prediction.detail)
-    }
-    setPrediction(prediction);
+  //for setting the prompt after gaping it from the input field
+  const [inputText, setInputText] = useState<String>();
 
-    while (
-      prediction.status !== "succeeded" &&
-      prediction.status !== "failed"
-    ) {
-      await sleep(1000);
-      const response = await fetch("/audiogeneration/api/audioldmPredictions/" + prediction.id);
-      prediction = await response.json();
-      if (response.status !== 200) {
-        console.error(prediction.detail)
-      }
+  //to show response Audio URL
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
-      console.log(prediction)
-      console.log({ prediction })
-      setPrediction(prediction);
-    }
-  };
+  /* hooks */
+  //the custome hook to send the generation request to api
+  const { isloading, audioGeneration } = usePostAudioGeneration();
+
+  console.log(audioGeneration)
+  console.log(isloading)
+
+  //define the zod custom validation schema for the form
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+  //  async function POST() {
+  //   const { apiOutput } = await audioGeneration();
+  // }
+  // POST()
   
+  //define the function to handle the form submit event
+  const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => { 
+    console.log("on submit")
+    //destructure the response json object value
+    const { apiOutput } = await audioGeneration(fromValues.prompt);
+    
+    setAudioUrl(apiOutput)
+  }
 
   return (
     <div className="flex flex-row h-full">
@@ -51,33 +60,55 @@ export default function audioGenerationpPage() {
             Generative Audio
           </h1>
 
-          <form onSubmit={handleSubmit} className="flex flex-col items-center h-full">
-            <Input
-              type="text"
-              name="prompt"
-              placeholder="Let me know what's on your mind"
-              className="w-[35rem] text-center rounded-[2rem] bg-[#D9D9D9] text-black m-5"
-          />
-            <Button
-              type="submit"
-              className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#ec80f6] from-30% to-black to-[125%] shadow-x m-5">
-            Music
-          </Button>
-          <Button className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#ec80f6] from-30% to-black to-[125%] shadow-xl  ">
-            SFX
-          </Button>
-          </form>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col items-center h-full"
+            >
+              <FormField
+                control={form.control}
+                name="prompt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="text"
+                        placeholder="Let me know what's on your mind"
+                        className="w-[35rem] text-center rounded-[2rem] bg-[#D9D9D9] text-black m-5"
+                        onChange={(e) => {
+                        setInputText(e.target.value)
+                        }}
+                      />
+                    </FormControl>
+                  </FormItem>
+                  
+                )}
+              />
+            
+              <Button
+                type="submit"
+                className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#ec80f6] from-30% to-black to-[125%] shadow-x m-5">
+                Music
+              </Button>
+              <Button
+                className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#ec80f6] from-30% to-black to-[125%] shadow-xl  ">
+                SFX
+              </Button>
+            </form>
+          </Form>
 
-          {prediction && (
-            <div className="flex flex-col justify-between items-center">
-              {prediction.output && (
-                <div className=" flex flex-col justify-between items-center w-[60%] mt-8 mb-10">
-                  <audio src={prediction.output} controls></audio>
-                </div>
-              )}
-              <p className="mt-4 text-lg text-white">status: {prediction.status}</p>
-            </div>
-          )}
+          {isloading ? (<>
+            Preparing your audio ...
+            <Loader color="#FFFFFF" />
+          </>) : (
+              // Display audio player when audio is available
+              <>
+                {audioUrl && (
+                  <audio src={audioUrl} controls></audio>
+                )}
+              </>
+            )}
         </div>
       </div>
     </div>

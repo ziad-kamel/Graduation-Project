@@ -10,36 +10,37 @@ const replicate = new Replicate({
           const requestBody = await request.json();
 
           // destructure the data the parsed request body
-          const inputPrompt = requestBody.input
+          const {model_version , prompt, duration, normalization_strategy} = requestBody
   
-          if(!inputPrompt){
-            throw new Error("inputPrompt not found")
-          }
+        if(!model_version){
+          throw new Error("model_version not found")
+        }
+        if(!prompt){
+          throw new Error("prompt not found")
+        }
+        if(!duration){
+          throw new Error("duration not found")
+        }
+        if(!normalization_strategy){
+          throw new Error("strategy not found")
+        }
           
         //call the model with the user input data
-        const apiOutput = await replicate.run(
+        const output = await replicate.run(
               "meta/musicgen:b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
               {
                 input: {
-                  top_k: 250,
-                  top_p: 0,
-                  prompt: inputPrompt,
-                  duration: 5,
-                  temperature: 1,
-                  continuation: false,
-                  model_version: "stereo-large",
-                  output_format: "wav",
-                  continuation_start: 0,
-                  multi_band_diffusion: false,
-                  normalization_strategy: "peak",
-                  classifier_free_guidance: 3
+                  prompt: prompt,
+                  duration: duration,
+                  model_version:model_version,
+                  normalization_strategy: normalization_strategy,
                 }
               }
         );
-            console.log(apiOutput);
+            console.log(output);
   
           // return the model results to the user
-          return new Response(JSON.stringify({apiOutput}), {status: 200});
+          return Response.json({output})
   
         // @ts-ignore
       }catch(error: Error){

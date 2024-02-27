@@ -9,24 +9,23 @@ const replicate = new Replicate({
 export default async function POST(request: Request) {
   try {
     const requestBody = await request.json();
-    const { audioURL, taskName } = requestBody.inputs;
+    const { audioURL } = requestBody.inputs;
 
     if (!audioURL) {
       throw new Error("audioURL not found");
     }
- 
+  
     //call model with user input data
     const apiOutput = await replicate.run(
       "lucataco/resemble-enhance:93266a7e7f5805fb79bcf213b1a4e0ef2e45aff3c06eefd96c59e850c87fd6a2",
       {
         input: {
-        //   solver: "Midpoint",
-        //   input_audio: "https://replicate.delivery/pbxt/K3Cc2kDFjhUBZT1wrMgR17AIAINzFTeJtn3jGc2LLyfhYbgl/Feynman_%20Knowing%20versus%20Understanding-demo.mp3",
-        //   denoise_flag: false,
-        //   prior_temperature: 0.5,
-        //   number_function_evaluations: 64
+          solver: "Midpoint",
+          input_audio: "audioURL",
+          denoise_flag: false,
+          prior_temperature: 0.5,
+          number_function_evaluations: 64
 
-          audio: audioURL,
 
         },
       }

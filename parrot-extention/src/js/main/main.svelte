@@ -76,13 +76,14 @@
 
   function hideAllTabs(){
     const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
-    cleanup.classList.add('hidden');
+    // change display style of the cleanup tab to none
+    cleanup.style.display = "none";
     const motion = document.querySelector('.motion-main') as HTMLElement;
-    motion.classList.add('hidden');
+    motion.style.display = "none";;
     const generative = document.querySelector('.generative-main') as HTMLElement;
-    generative.classList.add('hidden');
+    generative.style.display = "none";
     const tts = document.querySelector('.tts-main') as HTMLElement;
-    tts.classList.add('hidden');
+    tts.style.display = "none";
     
   }
 
@@ -99,6 +100,8 @@
       const header = document.querySelector('.app-header') as HTMLElement;
       //add the "hidden" class to the header
       header.classList.remove('hidden');
+      const app = document.querySelector('.app') as HTMLElement;
+      app.style.display = "block";
       return;
     }
     // get the nav with class sidebar
@@ -109,27 +112,30 @@
     const header = document.querySelector('.app-header') as HTMLElement;
     //add the "hidden" class to the header
     header.classList.add('hidden');
+    const app = document.querySelector('.app') as HTMLElement;
+    app.style.display = "flex";
     // create a switch statement to handle the tabs
     switch(tab){
       case TabNames.Cleanup:
         hideAllTabs();
         const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
         cleanup.classList.remove('hidden');
+        cleanup.style.display = "flex";
         break;
       case TabNames.MotionSFX:
         hideAllTabs();
         const motion = document.querySelector('.motion-main') as HTMLElement;
-        motion.classList.remove('hidden');
+        motion.style.display = "flex";
         break;
       case TabNames.GenerativeAudio:
         hideAllTabs();
         const generative = document.querySelector('.generative-main') as HTMLElement;
-        generative.classList.remove('hidden');
+        generative.style.display = "flex";
         break;
       case TabNames.TTS:
         hideAllTabs();
         const tts = document.querySelector('.tts-main') as HTMLElement;
-        tts.classList.remove('hidden');
+        tts.style.display = "flex";
         break;
       default:
         console.log("default");
@@ -144,18 +150,24 @@
   <main class="app-main">
     <div class = "cleanup-main hidden">
       <h1>Audio Cleanup</h1>
-      <button on:click={jsxTest}>Import Audio</button>
+      <button class = "sidebar-button" on:click={jsxTest}>Import Audio</button>
       <textarea></textarea>
-      <button on:click={nodeTest}>CLEAN</button>
+      <button class = "sidebar-button" on:click={nodeTest}>CLEAN</button>
     </div>
     <div class = "motion-main hidden">
       <h1>Motion SFX</h1>
+      <button class = "sidebar-button" on:click={jsxTest}>Import Current Frame</button>
     </div>
     <div class = "generative-main hidden">
       <h1>Generative Audio</h1>
+      <button on:click={jsxTest}>Music</button>
+      <button on:click={jsxTest}>Sound Effect</button>
+      <textarea></textarea>
     </div>
     <div class = "tts-main hidden">
       <h1>TTS</h1>
+      <textarea></textarea>
+      <button on:click={jsxTest}>Generate</button>
     </div>
   </main>
 </div>

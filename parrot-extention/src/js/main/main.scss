@@ -5,8 +5,13 @@
     background-image: linear-gradient($lightBG , $darkBG );
     // width and heght to fill the screen
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
+    // display flex to center the content
     
+}
+
+h1 {
+    color: white;
 }
 
 
@@ -41,14 +46,15 @@
 .sidebar {
     background-image: linear-gradient($darkSidebar, $lightSidebar);
     // display on the left of the screen
-    position: fixed;
+    // position: block;
     top: 0;
     left: 0;
     bottom: 0;
     width: 15%;
     padding: 1rem;
     // round the corners
-    border-radius: 10px;
+    border-radius: 0px 20px 20px 0px;
+    height: 100vh;
 }
 
 .sidebar > div {
@@ -91,4 +97,13 @@
 
 .hidden {
     display: none;
+}
+
+// MAIN CONTENT CSS
+
+// CLEANUP
+.cleanup-main {
+    display: none;
+    flex-direction: column;
+    row-gap: 1rem;
 }

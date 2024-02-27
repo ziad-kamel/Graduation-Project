@@ -1,27 +1,25 @@
+import { audioGenerationInputs } from "@/lib/types/audioGenTypes";
 import { useState } from "react";
 
-
 const usePostAudioGeneration = () => {
-
     const [isloading, setIsLoading] = useState(false);
 
-    const audioGeneration = async (prompt: String) => {
+    const audioGeneration = async (inputs: audioGenerationInputs) => {
         setIsLoading(true);
-
-        const input = prompt
 
         return await fetch('/audiogeneration/api/', {
             method: 'POST',
-            body: JSON.stringify({ input }),
+            body: JSON.stringify(inputs),
             headers: {"Content-Type": "application/json"},
         })
-        .then(async (res) => {
+        .then(async (generatedAudio) => {
             setIsLoading(false);
-            return await res.json();
+            return await generatedAudio.json();
         })
         .catch((error) => {
             setIsLoading(false);
-            alert(`Error in API Call : ${error.message}`)
+            alert(`Error while fetch: ${error.message}`);
+            return ""
         })
     };
     return {isloading, audioGeneration}

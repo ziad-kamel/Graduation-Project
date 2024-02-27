@@ -1,6 +1,7 @@
 <script>
-    import './GenerativeAudio.scss';
-      const audioGenModel = [
+  import './GenerativeAudio.scss';
+
+  const audioGenModel = [
     'model 1',
     'model 2',
     'model 3',

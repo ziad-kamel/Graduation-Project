@@ -1,13 +1,16 @@
 @import "../variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
 
 
 .app {
     background-image: linear-gradient($lightBG , $darkBG );
     // width and heght to fill the screen
     width: 100%;
-    min-height: 100vh;
-    font-family: 'jura';
+    min-height: 100%;
+    // display flex to center the content
+    
+}
+
+h1 {
     color: white;
 }
 
@@ -43,14 +46,12 @@
 .sidebar {
     background-image: linear-gradient($darkSidebar, $lightSidebar);
     // display on the left of the screen
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
+    // position: block;
     width: 15%;
-    padding: 1rem;
+    padding: 0rem 1rem;
     // round the corners
-    border-radius: 10px;
+    border-radius: 0px 20px 20px 0px;
+    height: 100vh;
 }
 
 .sidebar > div {
@@ -93,4 +94,41 @@
 
 .hidden {
     display: none;
+}
+
+// MAIN CONTENT CSS
+
+// CLEANUP
+.cleanup-main {
+    display: none;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+// GENERATIVE AUDIO
+
+// TTS 
+.tts-main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+// Motion
+.motion-main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
 }

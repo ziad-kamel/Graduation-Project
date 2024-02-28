@@ -24,7 +24,7 @@ import useUpload from "../hooks/useUpload";
 
 
 //define validation schema
-const FormSchema = z.object({
+const formSchema = z.object({
   audioFile: z.string({
     required_error: "Audio file is required",
   }),
@@ -67,10 +67,13 @@ export default function audioCleanUpPage() {
   //     fileInputRef.current.click(); // Trigger the file input when "import your audio" button is clicked
   //   }
   // };
+
+
   //define the zod custom validation schema for the form
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+    const form = useForm<z.infer<typeof FormSchema>>({
+      resolver: zodResolver(formSchema),
   });
+
 
   const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => {
     setIsSubmiting(true);
@@ -142,7 +145,7 @@ export default function audioCleanUpPage() {
           Audio Cleanup
         </h1>
   
-        <Form>
+        <Form {...form}>
           <FormItem>
             <FormLabel htmlFor="fileInput" className="w-96 h-14 rounded-[2rem] font-jura text-3xl bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl mb-4 cursor-pointer flex justify-center items-center">
               <span className="text-white">Import your audio</span>

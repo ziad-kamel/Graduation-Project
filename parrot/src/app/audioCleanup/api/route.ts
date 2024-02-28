@@ -1,12 +1,18 @@
 // import Error from "next/error";
 import Replicate from "replicate";
+import {auth} from "@clerk/nextjs";
 // import type { NextApiRequest, NextApiResponse } from "next";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-export default async function POST(request: Request) {
+if (!replicate) {
+  throw  Error ("REPLICATE_API_TOKEN is not set") 
+}
+
+
+export async function POST(request: Request) {
   try {
     const requestBody = await request.json();
     const { audioURL } = requestBody.inputs;

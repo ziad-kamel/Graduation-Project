@@ -115,6 +115,9 @@
     header.classList.add('hidden');
     const app = document.querySelector('.app') as HTMLElement;
     app.style.display = "flex";
+
+    const appMain = document.querySelector('.app-main') as HTMLElement;
+      appMain.style.width = "100%";
     // create a switch statement to handle the tabs
     switch(tab){
       case TabNames.Cleanup:

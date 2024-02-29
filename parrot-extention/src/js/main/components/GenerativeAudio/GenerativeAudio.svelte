@@ -76,7 +76,6 @@
       <button class= "sidebar-button" type="submit" on:click={() =>{generateAudio()}} >Generate</button>
     </div>
     <div class="audio-output">
-      <p>Generated Audio: {output}</p>
       {#if output}
         <audio controls>
           <source src = {output} type="audio/mpeg">

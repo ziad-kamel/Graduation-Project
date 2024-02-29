@@ -11,7 +11,9 @@
     "symlink": "cross-env ACTION=symlink vite",
     "delsymlink": "cross-env ACTION=delsymlink vite"
   },
-  "dependencies": {},
+  "dependencies": {
+    "replicate": "^0.27.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.19.0",
     "@babel/plugin-proposal-class-properties": "^7.16.0",

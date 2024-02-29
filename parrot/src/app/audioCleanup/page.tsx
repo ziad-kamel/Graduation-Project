@@ -23,6 +23,7 @@ import useUpload from "../hooks/useUpload";
 
 
 
+
 //define validation schema
 const formSchema = z.object({
   audioFile: z.string({
@@ -37,7 +38,7 @@ export default function audioCleanUpPage() {
   const [audioUrl, setAudioUrl] = useState<string>("");
   const [enhancedAudioUrl, setEnhancedAudioUrl] = useState<string | null>(null);
   const { edgestore } = useEdgeStore();
-  const [isSubmiting, setIsSubmiting] = useState<Boolean>(false);
+  const [isSubmiting, setIsSubmiting] = useState<boolean>(false);
   const [apiResponseAudio, setApiResponseAudio] = useState();
 
   /*hooks*/
@@ -70,12 +71,12 @@ export default function audioCleanUpPage() {
 
 
   //define the zod custom validation schema for the form
-    const form = useForm<z.infer<typeof FormSchema>>({
+    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
   });
 
 
-  const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => {
+  const onSubmit = async (fromValues: z.infer<typeof formSchema>) => {
     setIsSubmiting(true);
     // make a request to edgeStore API with uploadFile hook to store the audio in there and get its URL
     // the resulted URL will be sent as part of SpeechToText model request
@@ -105,22 +106,22 @@ export default function audioCleanUpPage() {
   };
 
   // const AudioUrlSchema = z.string().url();
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setAudioFile(file);
+  // const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   setAudioFile(file);
 
-    if (file && edgestore) {
-      try {
-        const res = await edgestore.publicFiles.upload({
-          file: file,
-        });
+  //   if (file && edgestore) {
+  //     try {
+  //       const res = await edgestore.publicFiles.upload({
+  //         file: file,
+  //       });
 
-        setAudioUrl(res.url);
-      } catch (error) {
-        console.error("Error uploading audio:", error);
-      }
-    }
-  };
+  //       setAudioUrl(res.url);
+  //     } catch (error) {
+  //       console.error("Error uploading audio:", error);
+  //     }
+  //   }
+  // };
 
   const handleCleanup = async () => {
     // if (audioUrl) {
@@ -146,25 +147,41 @@ export default function audioCleanUpPage() {
         </h1>
   
         <Form {...form}>
+          <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col items-center gap-8 w-2/5"
+            >
+          <FormField
+               control={form.control}
+               name="audioFile"
+               render={({ field }) => (
           <FormItem>
             <FormLabel htmlFor="fileInput" className="w-96 h-14 rounded-[2rem] font-jura text-3xl bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl mb-4 cursor-pointer flex justify-center items-center">
               <span className="text-white">Import your audio</span>
             </FormLabel>
             <FormControl>
-              <input
+              <Input
+                {...field}
                 type="file"
                 id="fileInput"
+                accept="audio/*"
                 style={{ display: "none" }}
-                onChange={handleFileChange}
+                onChange={(e) => {
+                  setAudioFile(e.target.files?.[0]);
+                }}
+                disabled={isSubmiting}
               />
             </FormControl>
+            <FormMessage/>
           </FormItem>
+                )} />
           <Button
             className="w-56 h-14 rounded-[2rem] font-jura text-2xl bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl"
             onClick={handleCleanup}
           >
             CleanUp
           </Button>
+          </form>
         </Form>
   
         {audioUrl && (

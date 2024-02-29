@@ -1,7 +1,4 @@
-// import Error from "next/error";
 import Replicate from "replicate";
-import {auth} from "@clerk/nextjs";
-// import type { NextApiRequest, NextApiResponse } from "next";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -27,13 +24,12 @@ export async function POST(request: Request) {
       {
         input: {
           solver: "Midpoint",
-          input_audio: "audioURL",
+          input_audio: audioURL,
           denoise_flag: false,
           prior_temperature: 0.5,
           number_function_evaluations: 64
 
-
-        },
+        },       
       }
     );
     // return the model results to the user

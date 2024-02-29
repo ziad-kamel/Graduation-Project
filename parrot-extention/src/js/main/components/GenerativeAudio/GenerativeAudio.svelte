@@ -17,79 +17,7 @@
   // alert(process.env.REPLICATE_API_TOKEN)
 
   const generateAudio = async () => {
-    alert(`Prompt: ${prompt}\nVersion: ${version}\nStrategy: ${strategy}\nDuration: ${duration}`);
-    try {
-      const replicate = new Replicate({
-        auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
-      });
-      const res = await replicate.run(
-        "meta/musicgen:b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
-        {
-          input: {
-            prompt: prompt,
-            duration: duration,
-            model_version: version,
-            normalization_strategy: strategy,
-          }
-        }
-      );
-      output = res.output;
-    } catch (e) {
-      alert(e.message);
-    }
-  };
-
-  import axios from 'axios';
-
-  async function a() {
-
-        // use https post request with the data
-        const data = {
-          version: "b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
-          input: {
-            prompt: prompt,
-            duration: duration,
-            model_version: version,
-            normalization_strategy: strategy
-          }
-        };
-
-        alert("a7a 1")
-
-
-        const out =await axios.post('https://api.replicate.com/v1/predictions', data, {
-          headers: {
-            "Authorization":"Token r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }})
-        .then(async (response) => {
-          alert(`1 ${JSON.stringify(await response.data)}`)
-          output= JSON.stringify(await response.data);
-          alert(`2 ${output}`)
-          return await response.data.output;
-          
-        })
-        .catch(function (error) {
-          // handle error
-          alert(error);
-        })
-        .finally(function () {
-          alert(`3 ${out}`)
-        });
-
-      // alert(out)
-      // output = out.output;
-
-      alert(`4 ${output}`)
-      
-    };
-
-    async function b() {
-
-      alert("b1")
-      try{
-        alert("b2")
+    try{
         const replicate = new Replicate({
           auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
         });
@@ -105,13 +33,11 @@
             }
           }
         );
-        alert(JSON.stringify(out))
         output = out;
       }catch(e){
         alert(e.message);
       }
-      alert("b3")
-    }
+  };
       
 
 
@@ -147,7 +73,7 @@
       </div>
     </div>
     <div class="generate-btn">
-      <button class= "sidebar-button" type="submit" on:click={() =>{b()}} >Generate</button>
+      <button class= "sidebar-button" type="submit" on:click={() =>{generateAudio()}} >Generate</button>
     </div>
     <div class="audio-output">
       <p>Generated Audio: {output}</p>

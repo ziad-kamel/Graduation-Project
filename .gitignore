@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Node modules
+./parrot-extention/node_modules
+./parrot-extention/dist
+./parrot-extention/.vscode
+./parrot-extention/.github

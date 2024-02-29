@@ -12,6 +12,8 @@
     "delsymlink": "cross-env ACTION=delsymlink vite"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
     "replicate": "^0.27.1"
   },
   "devDependencies": {

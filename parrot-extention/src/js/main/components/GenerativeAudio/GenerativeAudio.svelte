@@ -1,11 +1,5 @@
 <script >
   import './GenerativeAudio.scss';
-  import {
-    csi,
-    evalES,
-    evalTS,
-    subscribeBackgroundColor
-  } from "../../../lib/utils/bolt";
 
   import {
     Audio_Generation_Version,
@@ -45,9 +39,25 @@
     }
   };
 
-  const https = require('https');
-  const fs = require('fs');
-  function a() {
+ 
+
+  async function a() {
+//     const express = require('express');
+// const cors = require('cors');
+
+// const app = express();
+
+// // Enable CORS for all routes
+// app.use(cors());
+
+// // Your other middleware and routes
+// // ...
+
+// // Start the server
+// const PORT = 3030;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
         // use https post request with the data
         const data = JSON.stringify({
           version: "b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
@@ -70,22 +80,24 @@
           },
           body: data
         };
-        alert(options);
+
+        alert("a7a 1")
         try {
-          const req = https.request(options, res => {
-            alert(`statusCode: ${res.statusCode}`);
-            res.on('data', d => {
-              process.stdout.write(d);
-            });
-            output = res.output;
-          });
-        } catch (e) {
-          alert(e.message);
+          const replicate = new Replicate({
+    auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
+  });
+          const output = await fetch('https://api.replicate.com/v1/predictions', {
+            method:"POST",
+            headers:{
+              "Authorization":"Token r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
+              "Content-Type": "application/json",
+            },
+            body: data
+          })
+        } catch (error) {
+          alert(`Error! ${error.stack}`)
         }
-        alert("req");
-        
-
-
+        alert("a7a 2")
 
       };
 </script>

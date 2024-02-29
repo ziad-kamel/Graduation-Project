@@ -19,12 +19,12 @@
 
 <div class="generative-content">
     <div >
-      Prompt: <textarea></textarea>
+      <p style = "display: inline">Prompt: </p><textarea></textarea>
     </div>
 
     <div class="audio-gen-options">
       <div>
-          Version: 
+        <p style = "display: inline">Version: </p>
           <select> 
               {#each audioGenModel as modelName}
                 <option>{modelName}</option>
@@ -33,7 +33,7 @@
       </div>
 
       <div>
-          Strategy: 
+        <p style = "display: inline"> Strategy: </p>
           <select> 
             {#each audioGenStrategy as strategy}
               <option>{strategy}</option>
@@ -41,7 +41,7 @@
           </select>
       </div>
       <div>
-        Duration: <input type="number" min=3 max=20 />
+        <p style = "display: inline">Duration: </p><input type="number" min=3 max=20 />
       </div>
     </div>
     <div class="generate-btn">

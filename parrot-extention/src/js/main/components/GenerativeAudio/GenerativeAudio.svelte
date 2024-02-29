@@ -39,27 +39,12 @@
     }
   };
 
- 
+  import axios from 'axios';
 
   async function a() {
-//     const express = require('express');
-// const cors = require('cors');
 
-// const app = express();
-
-// // Enable CORS for all routes
-// app.use(cors());
-
-// // Your other middleware and routes
-// // ...
-
-// // Start the server
-// const PORT = 3030;
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
         // use https post request with the data
-        const data = JSON.stringify({
+        const data = {
           version: "b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
           input: {
             prompt: prompt,
@@ -67,39 +52,69 @@
             model_version: version,
             normalization_strategy: strategy
           }
-        });
-        const options = {
-          hostname: 'api.replicate.com',
-          port: 443,
-          path: '/v1/predictions',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': data.length,
-            'Authorization': 'Token r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox',
-          },
-          body: data
         };
 
         alert("a7a 1")
-        try {
-          const replicate = new Replicate({
-    auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
-  });
-          const output = await fetch('https://api.replicate.com/v1/predictions', {
-            method:"POST",
-            headers:{
-              "Authorization":"Token r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
-              "Content-Type": "application/json",
-            },
-            body: data
-          })
-        } catch (error) {
-          alert(`Error! ${error.stack}`)
-        }
-        alert("a7a 2")
 
-      };
+
+        const out =await axios.post('https://api.replicate.com/v1/predictions', data, {
+          headers: {
+            "Authorization":"Token r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }})
+        .then(async (response) => {
+          alert(`1 ${JSON.stringify(await response.data)}`)
+          output= JSON.stringify(await response.data);
+          alert(`2 ${output}`)
+          return await response.data.output;
+          
+        })
+        .catch(function (error) {
+          // handle error
+          alert(error);
+        })
+        .finally(function () {
+          alert(`3 ${out}`)
+        });
+
+      // alert(out)
+      // output = out.output;
+
+      alert(`4 ${output}`)
+      
+    };
+
+    async function b() {
+
+      alert("b1")
+      try{
+        alert("b2")
+        const replicate = new Replicate({
+          auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
+        });
+
+        const out = await replicate.run(
+          "meta/musicgen:b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
+          {
+            input: {
+              prompt: prompt,
+              duration: duration,
+              model_version: version,
+              normalization_strategy: strategy
+            }
+          }
+        );
+        alert(JSON.stringify(out))
+        output = out;
+      }catch(e){
+        alert(e.message);
+      }
+      alert("b3")
+    }
+      
+
+
 </script>
 
 
@@ -132,13 +147,15 @@
       </div>
     </div>
     <div class="generate-btn">
-      <button class= "sidebar-button" type="submit" on:click={() =>{a()}} >Generate</button>
+      <button class= "sidebar-button" type="submit" on:click={() =>{b()}} >Generate</button>
     </div>
     <div class="audio-output">
-      <p>Output:</p> <p>{output}</p>
-      <audio controls>
-        <source src={output} type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
+      <p>Generated Audio: {output}</p>
+      {#if output}
+        <audio controls>
+          <source src = {output} type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      {/if}
     </div>  
   </div>

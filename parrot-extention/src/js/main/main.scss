@@ -47,11 +47,8 @@ h1 {
     background-image: linear-gradient($darkSidebar, $lightSidebar);
     // display on the left of the screen
     // position: block;
-    top: 0;
-    left: 0;
-    bottom: 0;
     width: 15%;
-    padding: 1rem;
+    padding: 0rem 1rem;
     // round the corners
     border-radius: 0px 20px 20px 0px;
     height: 100vh;
@@ -106,4 +103,32 @@ h1 {
     display: none;
     flex-direction: column;
     row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+// GENERATIVE AUDIO
+
+// TTS 
+.tts-main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+// Motion
+.motion-main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
 }

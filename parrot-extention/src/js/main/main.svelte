@@ -4,15 +4,13 @@
   import {
     csi,
     evalES,
-    evalFile,
-    openLinkInBrowser,
-    subscribeBackgroundColor,
     evalTS,
-    selectFile,
+    subscribeBackgroundColor
   } from "../lib/utils/bolt";
 
-  import Sidebar from "./components/Sidebar.svelte";
+  import GenerativeAudio from "./components/GenerativeAudio/GenerativeAudio.svelte";
   import Header from "./components/Header.svelte";
+  import Sidebar from "./components/Sidebar.svelte";
 
   import "../index.scss";
   import "./main.scss";
@@ -102,6 +100,9 @@
       header.classList.remove('hidden');
       const app = document.querySelector('.app') as HTMLElement;
       app.style.display = "block";
+
+      const appMain = document.querySelector('.app-main') as HTMLElement;
+      appMain.style.width = "auto";
       return;
     }
     // get the nav with class sidebar
@@ -160,9 +161,7 @@
     </div>
     <div class = "generative-main hidden">
       <h1>Generative Audio</h1>
-      <button on:click={jsxTest}>Music</button>
-      <button on:click={jsxTest}>Sound Effect</button>
-      <textarea></textarea>
+      <GenerativeAudio/>
     </div>
     <div class = "tts-main hidden">
       <h1>TTS</h1>

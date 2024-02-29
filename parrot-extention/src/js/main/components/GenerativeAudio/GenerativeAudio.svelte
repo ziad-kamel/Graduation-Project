@@ -45,6 +45,6 @@
       </div>
     </div>
     <div class="generate-btn">
-      <input class= "sidebar-button" type="submit" value="Generate">
+      <button class= "sidebar-button" type="submit" >Generate</button>
     </div>
   </div>

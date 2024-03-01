@@ -1,10 +1,17 @@
 <script >
   import './GenerativeAudio.scss';
-
+  import { path } from "../../../lib/cep/node";
   import {
     Audio_Generation_Version,
     Normalization_Strategy,
   } from "../../../lib/utils/types";
+
+  import {
+    csi,
+    evalES,
+    evalTS,
+    subscribeBackgroundColor
+  } from "../../../lib/utils/bolt";
 
   import Replicate from "replicate";
   
@@ -37,8 +44,64 @@
       }catch(e){
         alert(e.message);
       }
+
+      // download and import that file
+      try{
+        downloadAndImport(output,prompt)
+      }catch(e){
+        alert(e.message);
+      }
   };
-      
+
+  const https = require('https');
+  const fs = require('fs');
+  // const ProgressBar = require('svelte-progress-bar')
+
+  // let progress = new ProgressBar({
+  //   target: document.querySelector('body'),
+  //   props: { color: '#01e9e9' }
+  // })
+
+  const downloadAndImport = (url, name) => {
+    alert("Downloading and Importing Audio");
+    // download the url content and save it to the local storage using node
+    try{
+      var downloadDir = path.resolve(__dirname+"\\Downloaded Media\\",name+".wav");
+      const file = fs.createWriteStream(downloadDir);
+      https.get(url, function(response) {
+
+        response.pipe(file);
+        file.on('finish', function() {
+          file.close(); 
+          alert("done")
+          alert("importing")
+          try{
+
+            importAudio([downloadDir,name]);
+          }catch (e){
+            alert(e.message);
+            output = e;
+          }
+          alert("imported")
+        });
+      }).on('error', function(err) { // Handle errors
+        fs.unlink(downloadDir); // Delete the file async. (But we don't check the result)
+        // if (cb) cb(err.message);
+        output = err;
+      });
+    }catch(e){
+      alert(e.message);
+      output = e;
+    }
+    
+  }
+
+  const importAudio = (filePath) => {
+    // if(filePath)
+    // alert(filePath);
+      evalTS("importAudioClip", filePath).then((res) => {
+      });
+  };
 
 
 </script>
@@ -76,6 +139,7 @@
       <button class= "sidebar-button" type="submit" on:click={() =>{generateAudio()}} >Generate</button>
     </div>
     <div class="audio-output">
+      <p>output:  {output}</p>
       {#if output}
         <audio controls>
           <source src = {output} type="audio/mpeg">

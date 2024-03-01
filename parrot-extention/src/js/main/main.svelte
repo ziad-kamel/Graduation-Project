@@ -13,6 +13,7 @@
   import Sidebar from "./components/Sidebar.svelte";
 
   import "../index.scss";
+  import Tts from "./components/TTS/TTS.svelte";
   import "./main.scss";
 
   let count: number = 0;
@@ -166,11 +167,11 @@
       <h1>Generative Audio</h1>
       <GenerativeAudio/>
     </div>
-    <div class = "tts-main hidden">
-      <h1>TTS</h1>
-      <textarea></textarea>
-      <button on:click={jsxTest}>Generate</button>
-    </div>
+    
+    <!-- <div class = "tts-main hidden"> -->
+      <Tts />
+    <!-- </div> -->
+  
   </main>
 </div>
 

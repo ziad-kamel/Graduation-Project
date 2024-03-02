@@ -144,7 +144,8 @@ export async function POST(request: Request) {
     }
 
     // Call model with user input data
-    const apiOutput = await replicate.run(
+    // @ts-ignore
+    const [denoised, enhanced] = await replicate.run(
       "lucataco/resemble-enhance:93266a7e7f5805fb79bcf213b1a4e0ef2e45aff3c06eefd96c59e850c87fd6a2",
       {
         input: {
@@ -156,9 +157,11 @@ export async function POST(request: Request) {
         },
       }
     );
-
+    console.log(denoised);
+    console.log(enhanced);
+    
     // Return the model results to the user
-    return new Response(JSON.stringify({ apiOutput }), {
+    return new Response(JSON.stringify({ denoised, enhanced }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

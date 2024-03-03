@@ -1,4 +1,4 @@
-<script >
+<script context="module">
   import './GenerativeAudio.scss';
   import { path } from "../../../lib/cep/node";
   import {
@@ -24,6 +24,11 @@
   // alert(process.env.REPLICATE_API_TOKEN)
 
   const generateAudio = async () => {
+    const resDiv = document.querySelector('.audio-output');
+    // remove the previous audio element if it exists 
+    if (resDiv.firstChild) {
+        resDiv.removeChild(resDiv.firstChild);
+    }
     try{
         const replicate = new Replicate({
           auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
@@ -41,6 +46,12 @@
           }
         );
         output = out;
+
+        // create a new audio element and append it to the div
+        let audio = document.createElement("audio");
+        audio.controls = true;
+        audio.src = output;
+        resDiv.appendChild(audio);
       }catch(e){
         alert(e.message);
       }
@@ -62,7 +73,7 @@
   //   props: { color: '#01e9e9' }
   // })
 
-  const downloadAndImport = (url, name) => {
+  export const downloadAndImport = (url, name) => {
     alert("Downloading and Importing Audio");
     // download the url content and save it to the local storage using node
     try{
@@ -73,8 +84,6 @@
         response.pipe(file);
         file.on('finish', function() {
           file.close(); 
-          alert("done")
-          alert("importing")
           try{
 
             importAudio([downloadDir,name]);
@@ -82,11 +91,9 @@
             alert(e.message);
             output = e;
           }
-          alert("imported")
         });
-      }).on('error', function(err) { // Handle errors
-        fs.unlink(downloadDir); // Delete the file async. (But we don't check the result)
-        // if (cb) cb(err.message);
+      }).on('error', function(err) { 
+        fs.unlink(downloadDir); 
         output = err;
       });
     }catch(e){
@@ -139,12 +146,5 @@
       <button class= "sidebar-button" type="submit" on:click={() =>{generateAudio()}} >Generate</button>
     </div>
     <div class="audio-output">
-      <p>output:  {output}</p>
-      {#if output}
-        <audio controls>
-          <source src = {output} type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      {/if}
     </div>  
   </div>

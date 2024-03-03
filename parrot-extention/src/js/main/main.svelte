@@ -13,6 +13,7 @@
   import Sidebar from "./components/Sidebar.svelte";
 
   import "../index.scss";
+  import Stt from "./components/STT/STT.svelte";
   import Tts from "./components/TTS/TTS.svelte";
   import "./main.scss";
 
@@ -70,12 +71,13 @@
     Cleanup = "Cleanup",
     MotionSFX = "Motion",
     GenerativeAudio = "Generative",
-    TTS = "TTS"
+    TTS = "TTS",
+    STT = 'STT',
   }
 
   function hideAllTabs(){
-    const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
     // change display style of the cleanup tab to none
+    const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
     cleanup.style.display = "none";
     const motion = document.querySelector('.motion-main') as HTMLElement;
     motion.style.display = "none";;
@@ -83,6 +85,8 @@
     generative.style.display = "none";
     const tts = document.querySelector('.tts-main') as HTMLElement;
     tts.style.display = "none";
+    const stt = document.querySelector('.stt-main') as HTMLElement;
+    stt.style.display = "none";
     
   }
 
@@ -142,6 +146,11 @@
         const tts = document.querySelector('.tts-main') as HTMLElement;
         tts.style.display = "flex";
         break;
+      case TabNames.STT:
+        hideAllTabs();
+        const stt = document.querySelector('.stt-main') as HTMLElement;
+        stt.style.display = "flex";
+        break;
       default:
         console.log("default");
     }
@@ -159,19 +168,20 @@
       <textarea></textarea>
       <button class = "sidebar-button" on:click={nodeTest}>CLEAN</button>
     </div>
+
     <div class = "motion-main hidden">
       <h1>Motion SFX</h1>
       <button class = "sidebar-button" on:click={jsxTest}>Import Current Frame</button>
     </div>
+    
     <div class = "generative-main hidden">
       <h1>Generative Audio</h1>
       <GenerativeAudio/>
     </div>
     
-    <!-- <div class = "tts-main hidden"> -->
       <Tts />
-    <!-- </div> -->
-  
+
+      <Stt />
   </main>
 </div>
 

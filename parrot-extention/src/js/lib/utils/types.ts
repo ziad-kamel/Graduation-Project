@@ -27,3 +27,15 @@ export interface audioGenerationInputs {
     duration: number;
     normalization_strategy: string;
 }
+
+//STT
+
+
+export interface STTLanguage {
+    audioLanguage: string;
+}
+
+export const STT_Language: STTLanguage[] = [
+    {audioLanguage:"Arabic"},
+    {audioLanguage:"English"},
+];

@@ -1,33 +1,29 @@
 <script>
-  import { csi, evalES } from '../../../lib/utils/bolt';
   import './TTS.scss';
-  const jsxTest = () => {
-    console.log(evalES(`helloWorld("${csi.getApplicationID()}")`));
-  };
-  let prompt = "";
-  let res;
-  const POST_TTS = async () => {
-    prompt = document.getElementById('prompt').value
-    alert(prompt)
 
+  let prompt = "";
+  let responseAudio="";
+
+  const POST_TTS = async () => {
     const ModelURL = 'https://api-inference.huggingface.co/models/facebook/fastspeech2-en-ljspeech';
     const HUGGING_FACE_TOKEN = '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';
 
+    prompt = document.getElementById('prompt').value
+
     try {
-        alert('starting')
         const response = await fetch(ModelURL, {
-            headers: { Authorization: "Bearer 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" },
+            headers: { Authorization: `Bearer ${HUGGING_FACE_TOKEN}` },
             method: "POST",
-            body: JSON.stringify({ inputs: "hello world" }),
+            body: JSON.stringify({ inputs: `${prompt}` }),
         });
-        alert('updating res')
-        
-        alert(JSON.stringify(response.body))
-        res = await response.arrayBuffer()
+
+        let myBlob = new Blob([await response.arrayBuffer()], { type: "audio/mpeg" });
+        let audioURL = URL.createObjectURL(myBlob);
+        responseAudio = audioURL
+
     } catch (error) {
         alert(`Error! code: ${error.message}`);
     }
-    alert('done')
   }
 </script>
 
@@ -36,7 +32,11 @@
   <textarea id="prompt" placeholder="enter the prompt"></textarea>
   <button on:click={POST_TTS}>Generate</button>
 
-  <div>
-    <h1 style="color: white;"> {res}</h1>
+  <div >
+    {#if responseAudio}
+    <audio controls>
+      <source type="audio/flac" src={responseAudio} />
+    </audio>
+    {/if}
   </div>
 </div>

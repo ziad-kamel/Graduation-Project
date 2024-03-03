@@ -84,8 +84,6 @@ export const importAudioClip = (fileLocation: string[]) => {
       return;
     }
   }
-  alert("importing file")
   app.project.importFiles([fileLocation[0]], true);
-  alert("file imported")
   helloWorld(availibleClips.numItems-1,true)
 };

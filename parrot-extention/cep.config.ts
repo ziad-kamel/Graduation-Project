@@ -50,7 +50,7 @@ const config: CEP_Config = {
     sourceMap: false,
     jsxBin: "off",
   },
-  installModules: ["fluent-ffmpeg"],
+  installModules: ["fluent-ffmpeg", "svelte-progress-bar"],
   copyAssets: ["/Downloaded Media"],
   copyZipAssets: [],
 };

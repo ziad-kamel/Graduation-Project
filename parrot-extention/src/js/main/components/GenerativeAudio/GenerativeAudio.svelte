@@ -7,10 +7,7 @@
   } from "../../../lib/utils/types";
 
   import {
-    csi,
-    evalES,
     evalTS,
-    subscribeBackgroundColor
   } from "../../../lib/utils/bolt";
 
   import Replicate from "replicate";
@@ -31,7 +28,7 @@
     }
     try{
         const replicate = new Replicate({
-          auth: "r8_d1g6LBLBi8Xyg45nbWVhA0baM9Xtttw4KBEox",
+          auth: "r8_OqcWtUo5c9qexkKGaLa7Va2XFiFrirF4eUADT",
         });
 
         const out = await replicate.run(

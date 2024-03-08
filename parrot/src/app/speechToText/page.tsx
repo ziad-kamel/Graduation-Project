@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import Loader from "@/components/Loader";
-import SideBar from "@/components/SideBar";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -110,7 +109,6 @@ export default function SpeechToTextPage() {
 
   return (
     <div className="flex flex-row h-full">
-      <SideBar/>
       <div className="w-full p-14">
         <div className="flex flex-col justify-between items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">

@@ -8,11 +8,10 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import {
   Select,
@@ -93,9 +92,6 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                     
                   />
                 </FormControl>
-                  <FormDescription>
-                    The text used to convert to sound.
-                  </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -108,7 +104,7 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
             control={form.control}
             name="TTSModel"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4">
                 <FormLabel>
                   Sound Model
                   
@@ -118,7 +114,6 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                   disabled={formSubmitting}
-
                 >
                   <FormControl>
                     <SelectTrigger className=" ">
@@ -134,9 +129,6 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
-                  This model will generate your sound.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

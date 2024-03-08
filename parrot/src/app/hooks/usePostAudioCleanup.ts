@@ -38,7 +38,7 @@ const usePostAudioCleanup = () => {
       audioURL: FileUrl,
     };
     try {
-      const response = await fetch("/audioCleanup/api", {
+      const response = await fetch("/generation/audioCleanup/api", {
         method: "POST",
         body: JSON.stringify({ inputs }),
         headers: { "Content-Type": "application/json" },

@@ -14,24 +14,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  STTLanguage,
-  STT_Language,
-  STT_Task,
-  STTtask,
-} from "@/lib/types/STTStypes";
 import { Copy, CopyCheck } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import usePostSpeechToText from "../hooks/usePostSpeechToText";
-import useUpload from "../hooks/useUpload";
+import usePostSpeechToText from "../../hooks/usePostSpeechToText";
+import useUpload from "../../hooks/useUpload";
 
 //define the custom validation schema for the form filed
 const FormSchema = z.object({
@@ -40,12 +27,6 @@ const FormSchema = z.object({
       required_error: "Audio file is required",
     })
     .optional(), //to not have conflict with the setting file state
-  task: z.string({
-    required_error: "Task type is required",
-  }),
-  language: z.string({
-    required_error: "Audio language is required",
-  }),
 });
 
 export default function SpeechToTextPage() {
@@ -93,9 +74,9 @@ export default function SpeechToTextPage() {
       });
       
       //destructure the response json object value
-      const {apiOutput} = await speechToText(uploadedFileURL, fromValues.task, fromValues.language);
+      const {transcription} = await speechToText(uploadedFileURL);
 
-      setApiResponseText(apiOutput.text);
+      setApiResponseText(transcription);
 
     setIsSubmiting(false);
   };
@@ -108,8 +89,6 @@ export default function SpeechToTextPage() {
   }
 
   return (
-    <div className="flex flex-row h-full">
-      <div className="w-72 "></div>
       <div className="w-full p-14">
         <div className="flex flex-col justify-between items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">
@@ -130,7 +109,7 @@ export default function SpeechToTextPage() {
                     <FormControl>
                       <Input
                         {...field}
-                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl"
+                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl border-none"
                         type="file"
                         accept="audio/*"
                         onChange={(e) => {
@@ -143,66 +122,6 @@ export default function SpeechToTextPage() {
                   </FormItem>
                 )}
               />
-
-              <div className="w-full flex flex-col sm:flex-row md:flex-row justify-evenly">
-                <FormField
-                  control={form.control}
-                  name="language"
-                  disabled={isSubmiting}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>language of the audio file</FormLabel>
-                      <Select onValueChange={field.onChange}>
-                        <FormControl className="rounded-full">
-                          <SelectTrigger>
-                            <SelectValue placeholder="select the audio language" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {STT_Language.map((language: STTLanguage) => (
-                            <SelectItem
-                              key={language.audioLanguage}
-                              value={language.audioLanguage}
-                            >
-                              {language.audioLanguage}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="task"
-                  disabled={isSubmiting}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>task to be performed by the AI</FormLabel>
-                      <Select onValueChange={field.onChange}>
-                        <FormControl className="rounded-full">
-                          <SelectTrigger>
-                            <SelectValue placeholder="select the task to preform" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {STT_Task.map((task: STTtask) => (
-                            <SelectItem
-                              key={task.taskType}
-                              value={task.taskType}
-                            >
-                              {task.taskType}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
 
               <Button
                 disabled={isSubmiting}
@@ -218,7 +137,7 @@ export default function SpeechToTextPage() {
           <div className="flex flex-col gap-3 items-center w-1/2 h-1/3 bg-[#c3c3c38c] rounded-2xl ">
             <div className="flex w-full flex-row-reverse">
               <Button variant={"ghost"} className="m-2" onClick={handelCopy}>
-                {copied ? <CopyCheck/> : <Copy />}
+                {copied ? <CopyCheck color="#092038"/> : <Copy color="#092038"/>}
               </Button>
             </div>
             
@@ -235,13 +154,12 @@ export default function SpeechToTextPage() {
                     (<>
                       Preparing your text ...
                       <Loader color="#FFFFFF"/>
-                    </>) : (<h1 id="resultText">{apiResponseText || "This is an Example of the results"}</h1>)}
+                    </>) : (<h1 className="text-white" id="resultText">{apiResponseText || "This is an Example of the results"}</h1>)}
                 </>
             )}
           </div>
 
         </div>
       </div>
-    </div>
   );
 }

@@ -11,7 +11,7 @@ const useTextToSpeech = () => {
         setLoading(true);
 
         //API calling with the user text and the selected model
-        return fetch('/text_to_speech/api/generate', {
+        return fetch('/generation/TextToSpeech/api/generate', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

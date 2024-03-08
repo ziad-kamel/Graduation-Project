@@ -5,15 +5,13 @@ import { useState } from "react";
 
 const usePostSpeechToText = () => {
     const [isloading , setIsLoading] = useState(false);
-    const speechToText = async (FileURL: string, task: string, language: string) => {
+    const speechToText = async (FileURL: string) => {
         setIsLoading(true);
         const inputs: customeInput = {
             audioURL: FileURL,
-            taskName: task,
-            audioLanguage: language
         }
 
-        return await fetch('/speechToText/api', {
+        return await fetch('/generation/speechToText/api', {
             method: 'POST',
             body: JSON.stringify({ inputs }),
             headers: {"Content-Type": "application/json"},

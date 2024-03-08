@@ -13,33 +13,27 @@ export async function POST(request: Request) {
         const requestBody = await request.json();
 
         // destructure the data the parsed request body
-        const  {audioURL, taskName, audioLanguage} = requestBody.inputs
+        const  {audioURL} = requestBody.inputs
 
         //check for any of the inputs is not provided
         if(!audioURL){
             throw new Error("audioURL not found")
         }
-        if(!taskName){
-            throw new Error("taskName not found")
-        }
-        if(!audioLanguage){
-            throw new Error("audioLanguage not found")
-        }
 
         //call the model with the user input data
-        const apiOutput = await replicate.run(
-            "vaibhavs10/incredibly-fast-whisper:3ab86df6c8f54c11309d4d1f930ac292bad43ace52d10c80d87eb258b3c9f79c",
+        //@ts-ignore
+        const {transcription} = await replicate.run(
+            "openai/whisper:4d50797290df275329f202e48c76360b3f22b08d28c196cbc54600319435f8d2",
             {
                 input: {
                     audio: audioURL,
-                    task: taskName,
-                    language: audioLanguage,
                 }
             }
         );
         
         // return the model results to the user
-        return new Response(JSON.stringify({apiOutput}), {status: 200, headers:{"Content-Type": "application/json",}});
+        return new Response(JSON.stringify({transcription}), {status: 200, headers:{"Content-Type": "application/json",}});
+        //@ts-ignore
     } catch (error: Error) {
         // if an error occurs then throw it to be handled from the front-end {alert}
         console.log("Error from API: ", error.message);

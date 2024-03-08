@@ -1,5 +1,5 @@
 import HomeCustomeButton from "@/components/HomeCustomeButton";
-import { FileAudio, ImageIcon, Paintbrush, Speech } from "lucide-react";
+import { FileAudio, Paintbrush, Speech, Text } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,21 +21,21 @@ export default function HomePage() {
                     <div className="flex flex-row justify-center space-y-8 w-full h-80">
                         <div className="flex flex-col justify-evenly w-4/5">
                             <div className="flex flex-row justify-around">
-                                <Link href={"/audioCleanup"}>
+                                <Link href={"/generation/audioCleanup"}>
                                     <HomeCustomeButton btnText="Audio Cleanup" icon= {<Paintbrush color="#1B8D7F"  size={'2rem'}/>}/>
                                 </Link>
 
-                                <Link href={"/"}>
-                                    <HomeCustomeButton btnText="Image To Audio" icon= {<ImageIcon color="#bb943e" size={'2rem'}/>}/>
+                                <Link href={"/generation/speechToText"}>
+                                    <HomeCustomeButton btnText="Speech To Text" icon= {<Speech color="#8488bd" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                             <div className="flex flex-row justify-around">
-                                <Link href={"/audiogeneration"}>
+                                <Link href={"/generation/audiogeneration"}>
                                     <HomeCustomeButton btnText="Audio Generation" icon= {<FileAudio color="#4d1557" size={'2rem'}/>}/>
                                 </Link>
 
-                                <Link href={"/text_to_speech"}>
-                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Speech color="#4591a9" size={'2rem'}/>}/>
+                                <Link href={"/generation/TextToSpeech"}>
+                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Text color="#4591a9" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                         </div>

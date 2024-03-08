@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import { TextToSpeechForm } from "@/components/TextToSpeechForm";
 import { TTSRequest } from "@/lib/types/TTSTypes";
 import { useState } from "react";
-import useTextToSpeech from "../hooks/usePostTextToSpeech";
+import useTextToSpeech from "../../hooks/usePostTextToSpeech";
 
 /**
  * The main view component for generating sound using a pre-trained model.
@@ -35,8 +35,7 @@ export default function GenerateSoundView() {
 
   return (
 
-    <div className="flex flex-row h-full">
-      <div className="w-72 "></div>
+
       <div className="w-full p-14">
         <div className="flex flex-col justify-evenly items-center h-full">
 
@@ -44,7 +43,7 @@ export default function GenerateSoundView() {
           
           <TextToSpeechForm handleGetAudio={handleGetAudio}/>
 
-          <div className="w-full h-24 flex justify-center items-center">
+          <div className="w-1/2 h-24 flex justify-center items-center flex-col gap-3 bg-[#c3c3c38c] rounded-2xl">
             {loading ? (
               // Show loader when fetching audio data
               <Loader color="#FFFFFF"/>
@@ -61,6 +60,5 @@ export default function GenerateSoundView() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

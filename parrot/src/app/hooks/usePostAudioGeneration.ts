@@ -7,7 +7,7 @@ const usePostAudioGeneration = () => {
     const audioGeneration = async (inputs: audioGenerationInputs) => {
         setIsLoading(true);
 
-        return await fetch('/audiogeneration/api/', {
+        return await fetch('/generation/audiogeneration/api/', {
             method: 'POST',
             body: JSON.stringify(inputs),
             headers: {"Content-Type": "application/json"},

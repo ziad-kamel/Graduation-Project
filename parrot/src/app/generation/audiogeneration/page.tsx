@@ -28,7 +28,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import usePostAudioGeneration from "../hooks/usePostAudioGeneration";
+import usePostAudioGeneration from "../../hooks/usePostAudioGeneration";
 
 const FormSchema = z.object({
   prompt: z.string({ required_error: "Please enter a prompt" }),
@@ -64,12 +64,10 @@ export default function audioGenerationpPage() {
   };
 
   return (
-    <div className="flex flex-row h-full">
-      <div className="w-72 "></div>
       <div className="w-full p-14">
         <div className="flex flex-col justify-around items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">
-            Generative Audio
+            Audio Generation
           </h1>
 
           <Form {...form}>
@@ -206,6 +204,5 @@ export default function audioGenerationpPage() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

@@ -16,8 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import usePostAudioCleanup from "../hooks/usePostAudioCleanup";
-import useUpload from "../hooks/useUpload";
+import usePostAudioCleanup from "../../hooks/usePostAudioCleanup";
+import useUpload from "../../hooks/useUpload";
 
 // Define validation schema
 const formSchema = z.object({
@@ -58,8 +58,6 @@ export default function AudioCleanUpPage() {
   };
 
   return (
-    <div className="flex flex-row h-full">
-      <div className="w-72"></div>
       <div className="w-full p-14">
         <div className="flex flex-col justify-between items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">
@@ -82,7 +80,7 @@ export default function AudioCleanUpPage() {
                     <FormControl>
                       <Input
                         {...field}
-                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl"
+                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl border-none"
                         type="file"
                         accept="audio/*"
                         onChange={(e) => {
@@ -119,13 +117,11 @@ export default function AudioCleanUpPage() {
               <h2 className="text-white">Denoised Audio:</h2>
               <audio controls>
                 <source src={denoisedAudio} type="audio/mpeg" />
-                Your browser does not support the audio element.
               </audio>
 
               <h2 className="text-white">Enhanced Audio:</h2>
               <audio controls>
                 <source src={enhancedAudio} type="audio/mpeg" />
-                Your browser does not support the audio element.
               </audio>
               </>
             )}
@@ -135,6 +131,5 @@ export default function AudioCleanUpPage() {
 
         </div>
       </div>
-    </div>
   );
 }

@@ -1,0 +1,11 @@
+{
+  "id": "mig_cnpmmbb53q1o4dpu04og",
+  "checksum": "1:d52433d6b1ef2130449575ec1af93ce9f6da66b04734cd016fefbb2721850525",
+  "operations": [
+    {
+      "addTable": {
+        "table": "parrot"
+      }
+    }
+  ]
+}

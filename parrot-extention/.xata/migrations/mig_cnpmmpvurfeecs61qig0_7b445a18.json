@@ -1,0 +1,19 @@
+{
+  "id": "mig_cnpmmpvurfeecs61qig0",
+  "parentID": "mig_cnpmmbb53q1o4dpu04og",
+  "checksum": "1:7b445a18cb94373e9c61eb7d973397d0b6818e3838a6f2f7654b07a41b83e7bb",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "audio",
+          "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+        },
+        "table": "parrot"
+      }
+    }
+  ]
+}

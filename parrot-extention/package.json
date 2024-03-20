@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "watch": "tsc && vite build --watch true",
-    "build": "rimraf dist/* && tsc -p \"tsconfig-build.json\" && vite build --watch false && npm start",
+    "build": "rimraf dist/* && tsc -p \"tsconfig-build.json\" && vite build --watch false",
     "zxp": "rimraf dist/* && tsc -p \"tsconfig-build.json\" && cross-env ZXP_PACKAGE=true vite build --watch false",
     "zip": "rimraf dist/* && tsc -p \"tsconfig-build.json\" && cross-env ZIP_PACKAGE=true vite build --watch false",
     "serve": "cross-env SERVE_PANEL=true vite preview",
@@ -13,7 +13,6 @@
     "start": "nodemon index.js"
   },
   "dependencies": {
-    "@xata.io/client": "^0.29.3",
     "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

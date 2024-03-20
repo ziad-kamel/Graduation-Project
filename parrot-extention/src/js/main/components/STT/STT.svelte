@@ -1,20 +1,20 @@
 <script>
   import Replicate from "replicate";
   import "./STT.scss";
+  
   var file;
-  var language;
   var audioUrl;
   var outputText;
+  var id;
+  const token = `xau_YROeQdb49l7txgQtbsNb9IEWKRfevfXq1`
+  const baseURL = `https://ziad-kamel-s-workspace-febjut.us-west-2.xata.sh/db/parrot-store:main`
 
   const setFile = async (inputFile) => {
     file = inputFile;
   };
 
   const onSubmitClicked = async () => {
-    language = document.getElementById("select-language").value;
-    const result = await xataUpload();
-    alert(JSON.stringify(result.url));
-    audioUrl = result.url;
+    audioUrl = await uploadFile()
     outputText = await STT();
   };
 
@@ -39,21 +39,51 @@
     }
   };
 
-  const xataUpload = async () => {
-    const formData = new FormData();
-    formData.append("file", file);
-    const BaseURL = "http://localhost:5000/";
-    const response = await fetch(BaseURL, {
-      method: "POST",
-      body: formData,
-    });
-    alert("done");
-    const data = await response.json();
-    alert(data);
-    return data;
+  const createRecord = async () => {
+    const createRecordURL = `${baseURL}/tables/parrot/data`
+    
+    var recordRes = await fetch(createRecordURL, {
+      method:"POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    recordRes = await recordRes.json()
+    id = recordRes.id
+  }
 
+  const insertAudio = async() => {
+    const insertAudioURL = `${baseURL}/tables/parrot/data/${id}/column/audio/file`
+      await fetch(insertAudioURL, {
+        method:'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type":"audio/mpeg"
+        },
+        body: file
+      })
+  }
 
-  };
+  const getURL = async () => {
+    const getURL = `${baseURL}/tables/parrot/data/${id}`
+    var response = await fetch(getURL,{
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    response = await response.json()
+
+    const URL = response.audio.url
+    outputText = URL
+    return URL
+  }
+
+  const  uploadFile = async() => {
+    await createRecord();
+    await insertAudio();
+    return await getURL();
+  }
 </script>
 
 <div class="stt-main hidden">

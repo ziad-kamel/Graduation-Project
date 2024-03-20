@@ -1,7 +1,0 @@
-{
-  "databaseURL": "https://ziad-kamel-s-workspace-febjut.us-west-2.xata.sh/db/parrot-store",
-  "codegen": {
-    "output": "./xata.js",
-    "moduleType": "cjs"
-  }
-}

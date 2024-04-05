@@ -13,6 +13,7 @@
   import Sidebar from "./components/Sidebar.svelte";
 
   import "../index.scss";
+  import AudioCleanup from "./components/AudioCleanup/AudioCleanup.svelte";
   import Stt from "./components/STT/STT.svelte";
   import Tts from "./components/TTS/TTS.svelte";
   import "./main.scss";
@@ -69,7 +70,6 @@
   
   enum TabNames {
     Cleanup = "Cleanup",
-    MotionSFX = "Motion",
     GenerativeAudio = "Generative",
     TTS = "TTS",
     STT = 'STT',
@@ -79,8 +79,6 @@
     // change display style of the cleanup tab to none
     const cleanup = document.querySelector('.cleanup-main') as HTMLElement;
     cleanup.style.display = "none";
-    const motion = document.querySelector('.motion-main') as HTMLElement;
-    motion.style.display = "none";;
     const generative = document.querySelector('.generative-main') as HTMLElement;
     generative.style.display = "none";
     const tts = document.querySelector('.tts-main') as HTMLElement;
@@ -131,11 +129,6 @@
         cleanup.classList.remove('hidden');
         cleanup.style.display = "flex";
         break;
-      case TabNames.MotionSFX:
-        hideAllTabs();
-        const motion = document.querySelector('.motion-main') as HTMLElement;
-        motion.style.display = "flex";
-        break;
       case TabNames.GenerativeAudio:
         hideAllTabs();
         const generative = document.querySelector('.generative-main') as HTMLElement;
@@ -162,17 +155,8 @@
   <Header />
   <Sidebar />
   <main class="app-main">
-    <div class = "cleanup-main hidden">
-      <h1>Audio Cleanup</h1>
-      <button class = "sidebar-button" on:click={jsxTest}>Import Audio</button>
-      <textarea></textarea>
-      <button class = "sidebar-button" on:click={nodeTest}>CLEAN</button>
-    </div>
 
-    <div class = "motion-main hidden">
-      <h1>Motion SFX</h1>
-      <button class = "sidebar-button" on:click={jsxTest}>Import Current Frame</button>
-    </div>
+    <AudioCleanup />
     
     <div class = "generative-main hidden">
       <h1>Generative Audio</h1>

@@ -1339,11 +1339,6 @@
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
 
-"@xata.io/client@^0.29.3":
-  version "0.29.3"
-  resolved "https://registry.yarnpkg.com/@xata.io/client/-/client-0.29.3.tgz#8a94d2567bc7747c7ad58698dd10fb645348e35e"
-  integrity sha512-GsH3RNU2P0fP+YKTFVZZ/DAkczJ6/25xyXg383GIlgLW9juy5PpMumscFIgfjWIbvnasATKNVN2127C4ONfOTg==
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"

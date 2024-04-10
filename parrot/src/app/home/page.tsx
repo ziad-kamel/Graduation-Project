@@ -10,7 +10,7 @@ export const metadata:Metadata={
 
 export default function HomePage() {
   return (
-    <div className="flex flex-row items-center justify-center h-full">
+    <main className="flex flex-row items-center justify-center h-full">
         <div className="flex flex-row w-9/12 justify-around">
             <Image src={'/logo2.png'} width={384} height={384} alt="parrot pic" draggable={false}/>
 
@@ -26,16 +26,16 @@ export default function HomePage() {
                                 </Link>
 
                                 <Link href={"/generation/speechToText"}>
-                                    <HomeCustomeButton btnText="Speech To Text" icon= {<Speech color="#8488bd" size={'2rem'}/>}/>
+                                    <HomeCustomeButton btnText="Speech To Text" icon= {<Speech color="#4f5271" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                             <div className="flex flex-row justify-around">
                                 <Link href={"/generation/audiogeneration"}>
-                                    <HomeCustomeButton btnText="Audio Generation" icon= {<FileAudio color="#4d1557" size={'2rem'}/>}/>
+                                    <HomeCustomeButton btnText="Audio Generation" icon= {<FileAudio color="#714479" size={'2rem'}/>}/>
                                 </Link>
 
                                 <Link href={"/generation/TextToSpeech"}>
-                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Text color="#4591a9" size={'2rem'}/>}/>
+                                    <HomeCustomeButton btnText="Text To Speech" icon= {<Text color="#377487" size={'2rem'}/>}/>
                                 </Link>
                             </div>
                         </div>
@@ -44,6 +44,6 @@ export default function HomePage() {
             </div>
 
         </div>
-    </div>
+    </main>
   )
 }

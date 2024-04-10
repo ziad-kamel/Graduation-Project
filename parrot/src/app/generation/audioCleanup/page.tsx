@@ -58,7 +58,7 @@ export default function AudioCleanUpPage() {
   };
 
   return (
-      <div className="w-full p-14">
+      <main className="w-full p-14">
         <div className="flex flex-col justify-between items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">
             Audio Cleanup
@@ -80,7 +80,7 @@ export default function AudioCleanUpPage() {
                     <FormControl>
                       <Input
                         {...field}
-                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl border-none"
+                        className="rounded-full w-max shadow-xl bg-primary border-none"
                         type="file"
                         accept="audio/*"
                         onChange={(e) => {
@@ -95,7 +95,7 @@ export default function AudioCleanUpPage() {
               />
               <Button
                 type="submit"
-                className="w-48 h-12 rounded-full text-2xl text-white font-jura bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl"
+                className="w-48 h-12 rounded-full text-2xl text-white font-jura shadow-xl"
                 disabled={isSubmitting}
               >
                 Generate
@@ -105,7 +105,7 @@ export default function AudioCleanUpPage() {
             </form>
           </Form>
 
-          <div className="bg-[#c3c3c38c] rounded-2xl w-1/2 h-2/5 flex flex-col justify-center items-center gap-3">
+          <div className="bg-secondary rounded-2xl w-1/2 h-2/5 flex flex-col justify-center items-center gap-3">
             {(!denoisedAudio && !enhancedAudio && !uploading && !isLoading) && (<>your audio will displayed here</>)}
             {uploading? (<>
             uploading...
@@ -130,6 +130,6 @@ export default function AudioCleanUpPage() {
           </div>
 
         </div>
-      </div>
+      </main>
   );
 }

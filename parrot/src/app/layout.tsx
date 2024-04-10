@@ -1,9 +1,8 @@
+import { CustomePopover } from "@/components/Popover";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,10 +26,11 @@ export default function RootLayout({
             {children}
           </EdgeStoreProvider>
         {/* </ThemeProvider> */}
-        <Link href={`${process.env.MIND_SPARK_URL}`} target="_blank">
+        {/* <Link href={`${process.env.MIND_SPARK_URL}`} target="_blank">
           <Image src={'/mindspark-logo.png'} alt="mindspark pic" draggable={false} width={60} height={60} style={{position:"fixed", right:"1rem" , bottom:"1rem"}}/>
-        </Link>
+        </Link> */}
 
+        <CustomePopover/>
       </body>
     </html>
     </ClerkProvider>

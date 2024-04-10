@@ -135,7 +135,7 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
           />
 
             {/* Submit button */}
-            <Button type="submit" disabled={formSubmitting} className="w-40 h-14 rounded-[2rem] text-2xl text-white font-jura bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl" >
+            <Button type="submit" disabled={formSubmitting} className="w-40 h-14 rounded-[2rem] text-2xl text-white font-jura  shadow-xl" >
               Generate
             </Button>
           </div>

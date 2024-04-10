@@ -89,7 +89,7 @@ export default function SpeechToTextPage() {
   }
 
   return (
-      <div className="w-full p-14">
+      <main className="w-full p-14">
         <div className="flex flex-col justify-between items-center h-full">
           <h1 className="text-5xl font-bold text-white font-jura">
             Speech To Text
@@ -109,7 +109,7 @@ export default function SpeechToTextPage() {
                     <FormControl>
                       <Input
                         {...field}
-                        className="rounded-full w-max bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl border-none"
+                        className="rounded-full w-max bg-primary shadow-xl border-none"
                         type="file"
                         accept="audio/*"
                         onChange={(e) => {
@@ -126,7 +126,7 @@ export default function SpeechToTextPage() {
               <Button
                 disabled={isSubmiting}
                 type="submit"
-                className="w-48 h-12 rounded-full text-2xl text-white font-jura bg-gradient-to-r from-[#431147] from-30% to-black to-[125%] shadow-xl"
+                className="w-48 h-12 rounded-full text-2xl text-white font-jura  shadow-xl"
               >
                 Generate
               </Button>
@@ -134,7 +134,7 @@ export default function SpeechToTextPage() {
           </Form>
 
           
-          <div className="flex flex-col gap-3 items-center w-1/2 h-1/3 bg-[#c3c3c38c] rounded-2xl ">
+          <div className="flex flex-col gap-3 items-center w-1/2 h-1/3 bg-secondary rounded-2xl ">
             <div className="flex w-full flex-row-reverse">
               <Button variant={"ghost"} className="m-2" onClick={handelCopy}>
                 {copied ? <CopyCheck color="#092038"/> : <Copy color="#092038"/>}
@@ -160,6 +160,6 @@ export default function SpeechToTextPage() {
           </div>
 
         </div>
-      </div>
+      </main>
   );
 }

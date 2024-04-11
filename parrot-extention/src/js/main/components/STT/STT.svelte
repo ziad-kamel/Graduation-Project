@@ -1,20 +1,21 @@
 <script>
   import Replicate from "replicate";
+  import { uploadFile } from '../helpers/upload';
   import "./STT.scss";
-  
   var file;
   var audioUrl;
-  var outputText;
-  var id;
-  const token = `xau_YROeQdb49l7txgQtbsNb9IEWKRfevfXq1`
-  const baseURL = `https://ziad-kamel-s-workspace-febjut.us-west-2.xata.sh/db/parrot-store:main`
+  var outputText='';
+  
 
   const setFile = async (inputFile) => {
     file = inputFile;
   };
 
   const onSubmitClicked = async () => {
-    audioUrl = await uploadFile()
+    await uploadFile(file).then((res)=>{
+      audioUrl = res.url
+    })
+
     outputText = await STT();
   };
 
@@ -39,51 +40,6 @@
     }
   };
 
-  const createRecord = async () => {
-    const createRecordURL = `${baseURL}/tables/parrot/data`
-    
-    var recordRes = await fetch(createRecordURL, {
-      method:"POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    recordRes = await recordRes.json()
-    id = recordRes.id
-  }
-
-  const insertAudio = async() => {
-    const insertAudioURL = `${baseURL}/tables/parrot/data/${id}/column/audio/file`
-      await fetch(insertAudioURL, {
-        method:'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type":"audio/mpeg"
-        },
-        body: file
-      })
-  }
-
-  const getURL = async () => {
-    const getURL = `${baseURL}/tables/parrot/data/${id}`
-    var response = await fetch(getURL,{
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    response = await response.json()
-
-    const URL = response.audio.url
-    outputText = URL
-    return URL
-  }
-
-  const  uploadFile = async() => {
-    await createRecord();
-    await insertAudio();
-    return await getURL();
-  }
 </script>
 
 <div class="stt-main hidden">

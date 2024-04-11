@@ -1,6 +1,6 @@
 <script>
   import Replicate from "replicate";
-  import { uploadFile } from "../helpers/xataUpload";
+  import { uploadFile } from "../helpers/upload";
   import "./AudioCleanup.scss";
 
   var file;
@@ -18,7 +18,6 @@
         auth: "r8_V0orDpY9E6fpUDkUUYq1P3xPjn5kvud4MjDxq",
       });
 
-      alert(`url: ${audioFileURL}`)
       const input = {
         input_audio: audioFileURL
       };
@@ -27,7 +26,7 @@
         "lucataco/resemble-enhance:93266a7e7f5805fb79bcf213b1a4e0ef2e45aff3c06eefd96c59e850c87fd6a2",
         { input }
       );
-      alert(output);
+      return output;
     } catch (error) {
       alert(`error: ${error}`);
       alert(`error: ${error.message}`);
@@ -35,8 +34,10 @@
   };
 
   const handelCLick = async () => {
-    audioUrl = await uploadFile(file);
-    var { denoisedResult, enhancedResult } = await audioCleanup(audioUrl);
+    await uploadFile(file).then((res)=>{
+      audioUrl = res.url
+    })
+    var [denoisedResult, enhancedResult] = await audioCleanup(audioUrl);
     denoisedAudio = denoisedResult;
     enhancedAudio = enhancedResult;
   };
@@ -49,7 +50,7 @@
     on:change={(e) => {
       setFile(e.target.files?.[0]);
     }}
-  /> <textarea></textarea>
+  />
   <button class="sidebar-button" on:click={handelCLick}>CLEAN</button>
 
   <div>
@@ -62,6 +63,5 @@
         <source src={enhancedAudio} type="audio/mpeg" />
       </audio>
     {/if}
-    <h1>hii</h1>
   </div>
 </div>

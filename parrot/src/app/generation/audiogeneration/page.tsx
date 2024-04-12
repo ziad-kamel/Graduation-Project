@@ -64,16 +64,16 @@ export default function audioGenerationpPage() {
   };
 
   return (
-      <main className="w-full p-14">
-        <div className="flex flex-col justify-around items-center h-full">
-          <h1 className="text-5xl font-bold text-white font-jura">
+      <main className="w-full p-8">
+        <div className="flex flex-col gap-8 items-center h-full">
+          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
             Audio Generation
           </h1>
 
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-1/2 flex flex-col gap-8"
+              className="w-full md:w-1/2 flex flex-col gap-8"
             >
               <FormField
                 control={form.control}
@@ -90,7 +90,7 @@ export default function audioGenerationpPage() {
                 )}
               />
 
-              <div className="flex justify-between ">
+              <div className="flex justify-between gap-4 ">
                 <FormField
                   control={form.control}
                   name="model_version"
@@ -189,7 +189,7 @@ export default function audioGenerationpPage() {
             </form>
           </Form>
 
-          <div className="flex flex-col justify-evenly items-center w-1/2 h-1/4 bg-secondary rounded-md ">
+          <div className="flex flex-col justify-evenly items-center w-1/2 h-1/4 bg-secondary rounded-2xl ">
             {isloading ? (
               <Loader color="#FFFFFF" />
             ) : (

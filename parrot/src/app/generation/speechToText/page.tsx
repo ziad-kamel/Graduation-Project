@@ -89,9 +89,9 @@ export default function SpeechToTextPage() {
   }
 
   return (
-      <main className="w-full p-14">
-        <div className="flex flex-col justify-between items-center h-full">
-          <h1 className="text-5xl font-bold text-white font-jura">
+      <main className="w-full p-8">
+        <div className="flex flex-col gap-8 items-center h-full">
+          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
             Speech To Text
           </h1>
 
@@ -134,7 +134,7 @@ export default function SpeechToTextPage() {
           </Form>
 
           
-          <div className="flex flex-col gap-3 items-center w-1/2 h-1/3 bg-secondary rounded-2xl ">
+          <div className="flex flex-col gap-11 items-center w-1/2 h-1/3 bg-secondary rounded-2xl ">
             <div className="flex w-full flex-row-reverse">
               <Button variant={"ghost"} className="m-2" onClick={handelCopy}>
                 {copied ? <CopyCheck color="#092038"/> : <Copy color="#092038"/>}
@@ -154,7 +154,7 @@ export default function SpeechToTextPage() {
                     (<>
                       Preparing your text ...
                       <Loader color="#FFFFFF"/>
-                    </>) : (<h1 className="text-white" id="resultText">{apiResponseText || "This is an Example of the results"}</h1>)}
+                    </>) : (<h1 className="text-xs md:text-lg" id="resultText">{apiResponseText || "Your results will be here"}</h1>)}
                 </>
             )}
           </div>

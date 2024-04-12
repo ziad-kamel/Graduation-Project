@@ -1,7 +1,6 @@
 import HomeCustomeButton from "@/components/HomeCustomeButton";
 import { FileAudio, Paintbrush, Speech, Text } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata:Metadata={
@@ -11,16 +10,18 @@ export const metadata:Metadata={
 export default function HomePage() {
   return (
     <main className="flex flex-row items-center justify-center h-full">
-        <div className="flex flex-row w-9/12 justify-around">
-            <Image src={'/logo2.png'} width={384} height={384} alt="parrot pic" draggable={false}/>
+        <div className="flex flex-col md:flex-row w-9/12 justify-around gap-4">
+            <div className="flex justify-center md:justify-start">
+                <img src="/logo2.png" alt="parrot pic" className="w-52 h-52 md:w-96 md:h-96" draggable={false}/>
+            </div>
 
-            <div className="flex flex-col items-center justify-evenly w-[47rem]">
+            <div className="flex flex-col items-center justify-evenly gap-4">
 
-                <h1 className="text-white font-jura text-[2.5rem]">Craft Your Sonic Symphony with Parrot</h1>
+                <h1 className="text-white font-jura text-md md:text-4xl ">Craft Your Sonic Symphony with Parrot</h1>
 
-                    <div className="flex flex-row justify-center space-y-8 w-full h-80">
-                        <div className="flex flex-col justify-evenly w-4/5">
-                            <div className="flex flex-row justify-around">
+                    <div className="flex flex-row justify-center space-y-8 w-full m-4">
+                        <div className="flex flex-col justify-evenly gap-8">
+                            <div className="flex flex-col md:flex-row justify-around gap-8">
                                 <Link href={"/generation/audioCleanup"}>
                                     <HomeCustomeButton btnText="Audio Cleanup" icon= {<Paintbrush color="#1B8D7F"  size={'2rem'}/>}/>
                                 </Link>
@@ -29,7 +30,7 @@ export default function HomePage() {
                                     <HomeCustomeButton btnText="Speech To Text" icon= {<Speech color="#4f5271" size={'2rem'}/>}/>
                                 </Link>
                             </div>
-                            <div className="flex flex-row justify-around">
+                            <div className="flex flex-col md:flex-row justify-around gap-8">
                                 <Link href={"/generation/audiogeneration"}>
                                     <HomeCustomeButton btnText="Audio Generation" icon= {<FileAudio color="#714479" size={'2rem'}/>}/>
                                 </Link>

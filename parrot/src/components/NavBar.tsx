@@ -20,13 +20,13 @@ export default function NavBar() {
     <nav>
         <div className="bg-secondary rounded-xl m-4 p-3 flex justify-between items-center">
             <Link href={'/home'}>
-                <div className="flex items-center">
-                    <Bird size={40} className="mr-2"/>
-                    <h1 className="text-3xl font-jura font-bold">Parrot</h1>
+                <div className="flex items-center gap-1">
+                    <Bird size={30} className=""/>
+                    <h1 className="text-xl md:text-2xl font-jura font-bold">Parrot</h1>
                 </div>
             </Link>
 
-            <div className="flex gap-4 ">
+            <div className="flex gap-2 md:gap-4 ">
                 <Dropdown label="Generation" options={generationDropDownOptions} />
                 <Dropdown label="Contact us" options={contactsDropDownOptions} />
                 <UserButton afterSignOutUrl="/" appearance={{baseTheme: dark, elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } },}}/>

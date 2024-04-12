@@ -36,14 +36,14 @@ export default function GenerateSoundView() {
   return (
 
 
-      <main className="w-full p-14">
-        <div className="flex flex-col justify-evenly items-center h-full">
+      <main className="w-full p-8">
+        <div className="flex flex-col gap-8 items-center h-full">
 
-          <h1 className="text-5xl font-bold text-white font-jura">Text to Speech</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">Text to Speech</h1>
           
           <TextToSpeechForm handleGetAudio={handleGetAudio}/>
 
-          <div className="w-1/2 h-24 flex justify-center items-center flex-col gap-3 bg-secondary rounded-2xl">
+          <div className=" w-1/2 h-1/5 flex justify-center items-center flex-col gap-3 bg-secondary rounded-2xl">
             {loading ? (
               // Show loader when fetching audio data
               <Loader color="#FFFFFF"/>

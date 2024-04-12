@@ -58,9 +58,9 @@ export default function AudioCleanUpPage() {
   };
 
   return (
-      <main className="w-full p-14">
-        <div className="flex flex-col justify-between items-center h-full">
-          <h1 className="text-5xl font-bold text-white font-jura">
+      <main className="w-full p-8">
+        <div className="flex flex-col gap-8 items-center h-full">
+          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
             Audio Cleanup
           </h1>
 
@@ -106,7 +106,7 @@ export default function AudioCleanUpPage() {
           </Form>
 
           <div className="bg-secondary rounded-2xl w-1/2 h-2/5 flex flex-col justify-center items-center gap-3">
-            {(!denoisedAudio && !enhancedAudio && !uploading && !isLoading) && (<>your audio will displayed here</>)}
+            {(!denoisedAudio && !enhancedAudio && !uploading && !isLoading) && (<div className="text-xs md:text-lg">your audio will displayed here</div>)}
             {uploading? (<>
             uploading...
             <Progress value={uploadProgress} className="w-1/2"/>

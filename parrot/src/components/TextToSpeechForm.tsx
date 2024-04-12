@@ -65,11 +65,11 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
   }
 
   return (
-    <div className="w-1/2">
+    <div className="w-3/4 md:w-1/2">
 
       {/* Form component that uses react-hook-form */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-between h-72">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 justify-center h-72">
           
           
           {/* Form field for entering the text */}
@@ -98,13 +98,13 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
           />
 
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-4">
           {/* Form field for selecting the sound model */}
           <FormField
             control={form.control}
             name="TTSModel"
             render={({ field }) => (
-              <FormItem className="mb-4">
+              <FormItem className="">
                 <FormLabel>
                   Sound Model
                   
@@ -135,9 +135,11 @@ export function TextToSpeechForm({ handleGetAudio }: TextToSpeechFormProps) {
           />
 
             {/* Submit button */}
-            <Button type="submit" disabled={formSubmitting} className="w-40 h-14 rounded-[2rem] text-2xl text-white font-jura  shadow-xl" >
-              Generate
-            </Button>
+            <div className="h-full flex items-end">
+              <Button type="submit" disabled={formSubmitting} className=" w-30 h-10 md:w-40 md:h-14 rounded-full text-xl md:text-2xl text-white font-jura  shadow-xl" >
+                Generate
+              </Button>
+            </div>
           </div>
         </form>
       </Form>

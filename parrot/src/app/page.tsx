@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata:Metadata={
@@ -9,31 +8,27 @@ export const metadata:Metadata={
 
 export default function WelcomePage() {
   return (
-    <div className="flex flex-row items-center justify-center h-full">
-      <div className="flex flex-row w-9/12 justify-between">
-
-        <Image src={'/logo1.png'} alt="parrot pic" width={384} height={384} draggable={false}/>
-
-        <div className="flex flex-col justify-evenly w-[45rem]">
-          <div className="flex justify-center">
-            <h1 className="text-white font-jura text-[2.5rem]">Explore the power of Al with Audio</h1>
-          </div>
-          
-          <div className="flex justify-center">
-            <div className="flex flex-row justify-center space-y-8 w-[27rem] h-56 rounded-[2rem] bg-[#787878d6]">
-              <div className="flex flex-col justify-evenly">
-                <Link href="/home">
-                <Button variant="outline" className="w-64 h-[3.5rem] text-white text-[2rem] font-jura rounded-[3rem] bg-[#54174E] border-none hover:bg-white hover:text-[#54174E]">Explore</Button>
-                </Link>
-                <Link href="/sign-up">
-                <Button variant="outline" className="w-64 h-[3.5rem] text-white text-[2rem] font-jura rounded-[3rem] bg-[#54174E] border-none hover:bg-white hover:text-[#54174E]">Register</Button>
-                </Link>
-              </div>
-            </div>
+    <main className="flex justify-center items-center h-full">
+      <div className="flex flex-col md:flex-row gap-8 m-4">
+        
+        <div className="flex justify-center ">
+          <img src="/logo1.png" className="w-40 h-40 md:w-96 md:h-96"/>
+        </div>
+        
+        <div className="flex flex-col justify-around gap-4">
+          <h1 className="text-md md:text-3xl font-jura font-bold">Explore the power of AI with Audio</h1>
+          <div className="bg-secondary flex flex-col gap-4 p-4 rounded-xl">
+            <Link href={'/home'} className="flex justify-center">
+              <Button variant={"outline"} className="w-1/2 rounded-full border-none bg-primary">Sign-in</Button>
+            </Link>
+            
+            <Link href={'/sign-up'} className="flex justify-center">
+              <Button variant={"outline"} className="w-1/2 rounded-full border-none bg-primary">sign-up</Button>
+            </Link>
           </div>
         </div>
 
       </div>
-    </div>
+    </main>
   );
 }

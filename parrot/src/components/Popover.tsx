@@ -30,7 +30,7 @@ export function CustomePopover() {
                 </Button>
             </Link>
         
-            <Link href={'/'}>
+            <Link href={`${process.env.AION_URL}`} target="_blank">
                 <Button>
                     <Bot/>
                 </Button>

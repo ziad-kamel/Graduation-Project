@@ -60,7 +60,7 @@ export default function AudioCleanUpPage() {
   return (
       <main className="w-full p-8">
         <div className="flex flex-col gap-8 items-center h-full">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground font-jura">
             Audio Cleanup
           </h1>
 
@@ -95,7 +95,7 @@ export default function AudioCleanUpPage() {
               />
               <Button
                 type="submit"
-                className="w-48 h-12 rounded-full text-2xl text-white font-jura shadow-xl"
+                className="w-48 h-12 rounded-full text-2xl text-primary-foreground font-jura shadow-xl"
                 disabled={isSubmitting}
               >
                 Generate
@@ -105,7 +105,7 @@ export default function AudioCleanUpPage() {
             </form>
           </Form>
 
-          <div className="bg-secondary rounded-2xl w-1/2 h-2/5 flex flex-col justify-center items-center gap-3">
+          <div className="bg-secondary rounded-2xl w-3/4 h-1/4 md:w-1/2 md:h-2/5 flex flex-col justify-center items-center gap-3">
             {(!denoisedAudio && !enhancedAudio && !uploading && !isLoading) && (<div className="text-xs md:text-lg">your audio will displayed here</div>)}
             {uploading? (<>
             uploading...
@@ -113,7 +113,7 @@ export default function AudioCleanUpPage() {
             </>): (<>
             {isLoading? (<><Loader color="#FFFFFF"/></>): (<>
             {denoisedAudio && enhancedAudio && (
-              <>
+              <div>
               <h2 className="text-white">Denoised Audio:</h2>
               <audio controls>
                 <source src={denoisedAudio} type="audio/mpeg" />
@@ -123,7 +123,7 @@ export default function AudioCleanUpPage() {
               <audio controls>
                 <source src={enhancedAudio} type="audio/mpeg" />
               </audio>
-              </>
+              </div>
             )}
             </>)}
             </>)}

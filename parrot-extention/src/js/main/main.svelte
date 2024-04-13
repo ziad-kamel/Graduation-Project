@@ -151,9 +151,10 @@
 
 </script>
 
+
+<Sidebar />
 <div class="app" >
   <Header />
-  <Sidebar />
   <main class="app-main">
 
     <AudioCleanup />

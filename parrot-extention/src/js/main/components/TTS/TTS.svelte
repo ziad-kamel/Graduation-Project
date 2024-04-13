@@ -1,11 +1,12 @@
 <script>
-  import './TTS.scss';
   import {
     evalTS,
   } from "../../../lib/utils/bolt";
-
+  import { TTS_MODELS } from "../../../lib/utils/types";
+  import './TTS.scss';
   let prompt = "";
   let responseAudio="";
+  let selectedModel;
   const path = require('path');
   const fs = require('fs');
 
@@ -17,7 +18,9 @@
   };
 
   const POST_TTS = async () => {
-    const ModelURL = 'https://api-inference.huggingface.co/models/facebook/fastspeech2-en-ljspeech';
+    alert(`selectedModel: ${selectedModel}`)
+    var ModelURL = selectedModel;
+    alert(`ModelURL: ${ModelURL}`)
     const HUGGING_FACE_TOKEN = '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';
     const resDiv = document.querySelector('.res');
     // remove the previous audio element if it exists 
@@ -83,8 +86,18 @@
 
 <div class = "tts-main hidden">
   <h1>TTS</h1>
-  <textarea id="prompt" placeholder="enter the prompt"></textarea>
-  <button on:click={POST_TTS}>Generate</button>
+  <div class="selections">
+    <textarea id="prompt" placeholder="Enter the prompt"></textarea>
+    <div class="selections">
+      <select bind:value={selectedModel}>
+        <option value="" disabled selected hidden>select a model</option>
+        {#each TTS_MODELS as model}
+              <option value={model.url}>{model.name}</option>
+        {/each}
+      </select>
+      <button class="sidebar-button"  on:click={POST_TTS}>Generate</button>
+    </div>
+  </div>
 
   <div class = "res">
     

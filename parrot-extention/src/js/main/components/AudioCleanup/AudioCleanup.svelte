@@ -51,7 +51,7 @@
       setFile(e.target.files?.[0]);
     }}
   />
-  <button class="sidebar-button" on:click={handelCLick}>CLEAN</button>
+  <button class="sidebar-button" on:click={handelCLick}>Generate</button>
 
   <div>
     {#if denoisedAudio && enhancedAudio}

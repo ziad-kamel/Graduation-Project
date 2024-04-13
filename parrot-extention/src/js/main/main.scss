@@ -2,7 +2,7 @@
 
 
 .app {
-    background-image: linear-gradient($lightBG , $darkBG );
+    background-color: $darkBG;
     // width and heght to fill the screen
     width: 100%;
     min-height: 100%;
@@ -48,26 +48,26 @@ p {
 // SIDE BAR CSS
 
 .sidebar {
-    background-image: linear-gradient($darkSidebar, $lightSidebar);
-    // display on the left of the screen
-    // position: block;
-    width: 15%;
-    padding: 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: $lightBG;;
+    
     // round the corners
-    border-radius: 0px 20px 20px 0px;
-    height: 100vh;
+    border-radius:1rem;
+    // height: 100vh;
 }
 
 .sidebar > div {
     display: flex;
-    flex-direction: column;
+    gap: 1rem;
     row-gap: 5rem;
-    margin: 1rem 0rem 1rem 0rem;
 }
 
 .sidebar-button {
     // linear gradient for the buttons from right to left
-    background-image: linear-gradient(to left, $lightSidebar, $darkSidebar);
+    background-color: $lightSidebar;;
     // drop shadow
     box-shadow: 0px 0px 10px 0px $darkSidebar;
     // round the corners
@@ -93,7 +93,7 @@ p {
 
 .selected-sidebutton {
     // linear gradient for the buttons from right to left
-    background-image: linear-gradient(to left, $darkSidebar, $lightSidebar);
+    background-color: $darkBG;;
 }
 
 .hidden {

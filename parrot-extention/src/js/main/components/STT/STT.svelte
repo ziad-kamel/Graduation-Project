@@ -51,7 +51,7 @@
     }}
   />
 
-  <button on:click={onSubmitClicked}>Generate</button>
+  <button class="sidebar-button" on:click={onSubmitClicked}>Generate</button>
 
   <p>{outputText}</p>
 </div>

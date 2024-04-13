@@ -1,4 +1,7 @@
 @import "./variables.scss";
+html{
+  background-color: $darkBG;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -34,7 +37,7 @@ code {
 
 button {
   font-size: 1.25rem;
-  background-color: #3f4653;
+  background-color: #708CB2;
   padding: 0.5rem;
   text-align: center;
   vertical-align: middle;
@@ -44,7 +47,7 @@ button {
   outline: none;
 }
 button:hover {
-  background-color: #515b6d;
+  background-color: #1D3B5B;
 }
 
 button:active {

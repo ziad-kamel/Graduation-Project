@@ -7,3 +7,16 @@
     width: 100%;
     min-height: 100vh;
 }
+
+.selections{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.selections > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

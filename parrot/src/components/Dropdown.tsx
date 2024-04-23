@@ -9,7 +9,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 type customeProps = {
@@ -18,8 +18,9 @@ type customeProps = {
 }
 
 export function Dropdown({label, options,}:customeProps) {
-  const [position, setPosition] = useState("bottom")
 
+  const [position, setPosition] = useState("bottom")
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,14 +28,12 @@ export function Dropdown({label, options,}:customeProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-fit bg-secondary-foreground border-none">
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition} className="m-1">
-            {options.map((option)=>{
+            {options.map(async (option)=>{
                 return (
-                    <Link href={`${option.href}`} target={option.blankTarget?'_blank':'_top'}>
-                      <DropdownMenuItem className="gap-3">
+                      <DropdownMenuItem className="gap-3" onClick={() => router.push(option.href!)} key={option.name}>
                                 {option.icon}
                                 {option.name}
                       </DropdownMenuItem>
-                    </Link>
                 )
             })}
         </DropdownMenuRadioGroup>

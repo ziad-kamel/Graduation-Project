@@ -1,3 +1,4 @@
+"use client"
 import { UserButton } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
 import { Bird, Facebook, FileAudio, Github, Instagram, Paintbrush, Speech, Text, Trello } from "lucide-react";

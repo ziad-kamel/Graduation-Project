@@ -60,6 +60,10 @@ export default function SpeechToTextPage() {
 
   //define the function to handle the form submit event
   const onSubmit = async (fromValues: z.infer<typeof FormSchema>) => {
+    if (!audioFile) {
+      alert('No file found')
+      return
+    }
     setIsSubmiting(true);
     setCopied(false);
 

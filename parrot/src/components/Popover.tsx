@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Bird, Bot, Brain, PawPrint } from "lucide-react"
+import { Bird, Bot, Brain, PawPrint, Tv2 } from "lucide-react"
 import Link from "next/link"
 
 export function CustomePopover() {
@@ -17,7 +17,7 @@ export function CustomePopover() {
         </Button>
       </PopoverTrigger>
       
-      <PopoverContent className="w-fit m-4 bg-transparent grid gap-4 border-none">
+      <PopoverContent className="w-fit m-1 bg-transparent grid gap-4 border-none">
             <Link href={`${process.env.MIND_SPARK_URL}`} target="_blank">
                 <Button>
                     <Brain/>
@@ -33,6 +33,12 @@ export function CustomePopover() {
             <Link href={'/'}>
                 <Button>
                     <Bot/>
+                </Button>
+            </Link>
+
+            <Link href={`${process.env.NEXUS_URL}`} target="_blank">
+                <Button>
+                    <Tv2/>
                 </Button>
             </Link>
       </PopoverContent>

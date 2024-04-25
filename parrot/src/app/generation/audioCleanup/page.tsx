@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -27,6 +28,7 @@ const formSchema = z.object({
 });
 
 export default function AudioCleanUpPage() {
+  const router = useRouter();
   // State
   const [audioFile, setAudioFile] = useState<File>();
   const [denoisedAudio, setDenoisedAudio] = useState("");
@@ -46,6 +48,10 @@ export default function AudioCleanUpPage() {
 
   // Form submit handler
   const onSubmit = async () => {
+    if (!audioFile) {
+      alert('No file found')
+      return
+    }
     setIsSubmitting(true);
 
     const uploadedFileURL = await uploadFile(audioFile, { temporary: true });

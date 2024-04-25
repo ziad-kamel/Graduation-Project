@@ -66,7 +66,7 @@ export default function audioGenerationpPage() {
   return (
       <main className="w-full p-8">
         <div className="flex flex-col gap-8 items-center h-full">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground font-jura">
             Audio Generation
           </h1>
 
@@ -180,7 +180,7 @@ export default function audioGenerationpPage() {
               <Button
                 disabled={isSubmiting}
                 type="submit"
-                className="w-48 h-12 rounded-full text-2xl text-white font-jura shadow-xl"
+                className="w-48 h-12 rounded-full text-2xl text-primary-foreground font-jura shadow-xl"
               >
                 Generate
               </Button>
@@ -189,7 +189,7 @@ export default function audioGenerationpPage() {
             </form>
           </Form>
 
-          <div className="flex flex-col justify-evenly items-center w-1/2 h-1/4 bg-secondary rounded-2xl ">
+          <div className="flex flex-col justify-evenly items-center w-3/4 h-1/4 md:w-1/2 md:h-1/4 bg-secondary rounded-2xl ">
             {isloading ? (
               <Loader color="#FFFFFF" />
             ) : (

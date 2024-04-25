@@ -95,7 +95,7 @@ export default function SpeechToTextPage() {
   return (
       <main className="w-full p-8">
         <div className="flex flex-col gap-8 items-center h-full">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground font-jura">
             Speech To Text
           </h1>
 
@@ -130,7 +130,7 @@ export default function SpeechToTextPage() {
               <Button
                 disabled={isSubmiting}
                 type="submit"
-                className="w-48 h-12 rounded-full text-2xl text-white font-jura  shadow-xl"
+                className="w-48 h-12 rounded-full text-2xl text-primary-foreground font-jura  shadow-xl"
               >
                 Generate
               </Button>
@@ -138,7 +138,7 @@ export default function SpeechToTextPage() {
           </Form>
 
           
-          <div className="flex flex-col gap-11 items-center w-1/2 h-1/3 bg-secondary rounded-2xl ">
+          <div className="flex flex-col gap-11 items-center w-3/4 h-1/4 md:w-1/2 md:h-2/5 bg-secondary rounded-2xl ">
             <div className="flex w-full flex-row-reverse">
               <Button variant={"ghost"} className="m-2" onClick={handelCopy}>
                 {copied ? <CopyCheck color="#092038"/> : <Copy color="#092038"/>}

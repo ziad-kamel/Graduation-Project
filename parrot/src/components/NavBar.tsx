@@ -1,10 +1,13 @@
-"use client"
+'use client'
 import { UserButton } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
 import { Bird, Facebook, FileAudio, Github, Instagram, Paintbrush, Speech, Text, Trello } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { Dropdown } from "./Dropdown";
+import ThemeToggleButton from "./ThemeToggleButton";
 export default function NavBar() {
+    const {theme} = useTheme();
     const generationDropDownOptions = [
         {name: 'Audio Cleanup', icon: <Paintbrush/>, href: '/generation/audioCleanup'},
         {name: 'Audio Generation', icon: <FileAudio />, href: '/generation/audiogeneration'},
@@ -27,10 +30,16 @@ export default function NavBar() {
                 </div>
             </Link>
 
-            <div className="flex gap-2 md:gap-4 ">
+            <div className="flex gap-1 md:gap-4 ">
+                <UserButton 
+                    afterSignOutUrl="/" 
+                    appearance={{
+                        baseTheme: theme === "dark" ? dark : undefined,
+                        elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } },
+                        }}/>
+                <ThemeToggleButton/>
                 <Dropdown label="Generation" options={generationDropDownOptions} />
                 <Dropdown label="Contact us" options={contactsDropDownOptions} />
-                <UserButton afterSignOutUrl="/" appearance={{baseTheme: dark, elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } },}}/>
             </div>
         </div>
     </nav>

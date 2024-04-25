@@ -24,7 +24,7 @@ export function Dropdown({label, options,}:customeProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="default"  size="sm">{label}</Button>
+        <Button variant="default" className="w-20 h-8 text-sm md:w-28 md:h-10 ">{label}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-fit bg-secondary-foreground border-none">
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition} className="m-1">

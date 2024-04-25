@@ -11,7 +11,7 @@ import useTextToSpeech from "../../hooks/usePostTextToSpeech";
  */
 export default function GenerateSoundView() {
   // State to manage audio URL
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audioUrl, setAudioUrl] = useState<string | null>("");
 
   //use the custom hook to call the text-to-speech API
   const {loading, textToSpeech} = useTextToSpeech();
@@ -39,11 +39,11 @@ export default function GenerateSoundView() {
       <main className="w-full p-8">
         <div className="flex flex-col gap-8 items-center h-full">
 
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-jura">Text to Speech</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground font-jura">Text to Speech</h1>
           
           <TextToSpeechForm handleGetAudio={handleGetAudio}/>
 
-          <div className=" w-1/2 h-1/5 flex justify-center items-center flex-col gap-3 bg-secondary rounded-2xl">
+          <div className="w-3/4 h-1/4 md:w-1/2 md:h-1/5 flex justify-center items-center flex-col gap-3 bg-secondary rounded-2xl">
             {loading ? (
               // Show loader when fetching audio data
               <Loader color="#FFFFFF"/>

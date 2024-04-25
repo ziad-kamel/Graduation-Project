@@ -17,7 +17,7 @@ export default function HomePage() {
 
             <div className="flex flex-col items-center justify-evenly gap-4">
 
-                <h1 className="text-white font-jura text-md md:text-4xl ">Craft Your Sonic Symphony with Parrot</h1>
+                <h1 className="text-primary-foreground font-jura text-md md:text-4xl ">Craft Your Sonic Symphony with Parrot</h1>
 
                     <div className="flex flex-row justify-center space-y-8 w-full m-4">
                         <div className="flex flex-col justify-evenly gap-8">

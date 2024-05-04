@@ -4,6 +4,8 @@ import { Metadata } from "next";
 
 export const metadata:Metadata={
     title:"Parrot-Sign in",
+    icons: 'parrot.svg'
+
 }
 export default function Page() {
   return (

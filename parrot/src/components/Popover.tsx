@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Bird, Bot, Brain, PawPrint, Tv2 } from "lucide-react"
+import { Airplay, Bird, Bot, Brain, MessagesSquareIcon } from "lucide-react"
 import Link from "next/link"
 
 export function CustomePopover() {
@@ -26,7 +26,7 @@ export function CustomePopover() {
         
             <Link href={`${process.env.ECHO_URL}`} target="_blank">
                 <Button>
-                    <PawPrint/>
+                  <MessagesSquareIcon />
                 </Button>
             </Link>
         
@@ -38,7 +38,7 @@ export function CustomePopover() {
 
             <Link href={`${process.env.NEXUS_URL}`} target="_blank">
                 <Button>
-                    <Tv2/>
+                    <Airplay/>
                 </Button>
             </Link>
       </PopoverContent>

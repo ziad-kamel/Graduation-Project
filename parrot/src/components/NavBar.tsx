@@ -1,9 +1,11 @@
 'use client'
 import { UserButton } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
-import { Bird, Facebook, FileAudio, Github, Instagram, Paintbrush, Speech, Text, Trello } from "lucide-react";
+import { Facebook, FileAudio, Github, Instagram, Paintbrush, Speech, Text, Trello } from "lucide-react";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import Link from "next/link";
+import parrot from '../../public/parrot.svg';
 import { Dropdown } from "./Dropdown";
 import ThemeToggleButton from "./ThemeToggleButton";
 export default function NavBar() {
@@ -25,7 +27,8 @@ export default function NavBar() {
         <div className="bg-secondary rounded-xl m-4 p-3 flex justify-between items-center">
             <Link href={'/home'}>
                 <div className="flex items-center gap-1">
-                    <Bird size={30} className=""/>
+                    {/* <Bird size={30} className=""/> */}
+                    <Image src={parrot} alt="ss" width={40} height={40}/>
                     <h1 className="text-xl md:text-2xl font-jura font-bold">Parrot</h1>
                 </div>
             </Link>

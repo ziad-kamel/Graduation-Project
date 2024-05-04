@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export const metadata:Metadata={
     title:"Home",
+  icons: 'parrot.svg'
 }
 
 export default function HomePage() {

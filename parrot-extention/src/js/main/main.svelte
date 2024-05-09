@@ -18,6 +18,11 @@
   import Tts from "./components/TTS/TTS.svelte";
   import "./main.scss";
 
+
+
+
+
+
   let count: number = 0;
   let backgroundColor: string = "#282c34";
 
@@ -62,11 +67,44 @@
     if (window.cep) {
       subscribeBackgroundColor((c: string) => (backgroundColor = c));
     }
+    const SignInBtn = document.getElementById('sign-btn') as HTMLElement;
+    SignInBtn.click();
   });
 </script>
 
 <script lang='ts' context="module">
 
+import { Clerk } from "@clerk/clerk-js";
+
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const clerk = new Clerk(clerkPubKey);
+const clerkAuth = async () =>{ 
+  try {
+    const signInDiv = document.getElementById('signInDiv') as HTMLDivElement;
+    await clerk.load({
+      afterSignUpUrl: path.join(__dirname, 'main',`index.html`)
+    });
+    if (clerk.user) {
+      // clerk.session?.getToken().then((res)=>{alert(res)})
+      signInDiv.style.display = 'none';
+      document.getElementById('app')!.style.display = 'block';
+      clerk.closeSignIn()
+    } else {
+
+      clerk.mountSignIn(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`) });  } 
+    }
+    catch (error) {
+    //@ts-ignore
+    alert(error.message)
+  }
+}
+
+
+
+export const clerkSignOut = () => {
+  // alert(`signing out token id: ${clerk.session?.id}`)
+  clerk.signOut({sessionId:clerk.session?.id, redirectUrl: path.join(__dirname, 'main',`index.html`)})
+}
   
   enum TabNames {
     Cleanup = "Cleanup",
@@ -150,25 +188,33 @@
   }
 
 </script>
-
-
-<Sidebar />
-<div class="app" >
-  <Header />
-  <main class="app-main">
-
-    <AudioCleanup />
-    
-    <div class = "generative-main hidden">
-      <h1>Generative Audio</h1>
-      <GenerativeAudio/>
-    </div>
-    
-      <Tts />
-
-      <Stt />
-  </main>
+{#if !clerk.user}
+<div id="signInDiv">
+  <button on:click={clerkAuth} id="sign-btn"></button>
 </div>
+{/if}
+
+  
+<Sidebar />
+<div class="app" id="app" style="display: none;">
+<Header />
+
+<main class="app-main">
+
+  <AudioCleanup />
+  
+  <div class = "generative-main hidden">
+    <h1>Generative Audio</h1>
+    <GenerativeAudio/>
+  </div>
+  
+    <Tts />
+
+    <Stt />
+</main>
+</div>
+
 
 <style>
 </style>
+

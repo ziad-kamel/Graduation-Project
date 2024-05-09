@@ -2,9 +2,14 @@
   import Replicate from "replicate";
   import { uploadFile } from '../helpers/upload';
   import "./STT.scss";
+  import {
+    evalTS,
+  } from "../../../lib/utils/bolt";
+import { start } from "repl";
   var file;
   var audioUrl;
   var outputText='';
+  var retval = "";
   
 
   const setFile = async (inputFile) => {
@@ -17,12 +22,27 @@
     })
 
     outputText = await STT();
+
+    for(let i = 0; i < retval.length; i++) {
+
+        var startTime = retval[i].start;
+        var endTime = retval[i].end;
+
+        var text = retval[i].text
+
+        // alert(text + startTime + endTime)
+
+        evalTS("importSubtitle", [startTime.toString(), endTime.toString(), text]).then((res) => {
+      });
+
+    }
+    
   };
 
   const STT = async () => {
     try {
       const replicate = new Replicate({
-        auth: "r8_V0orDpY9E6fpUDkUUYq1P3xPjn5kvud4MjDxq",
+        auth: "r8_GGBgmV4JpkG4szoPyU1fN6sqbbdPFRt1F3xcv",
       });
 
       const output = await replicate.run(
@@ -30,11 +50,13 @@
         {
           input: {
             audio: audioUrl,
+            transcription: "srt",
           },
         }
       );
-      alert(output.transcription);
-      return output.transcription;
+      alert(JSON.stringify(output));
+      retval = output.segments;
+      return JSON.stringify(output.segments);
     } catch (error) {
       alert(error.message);
     }
@@ -53,5 +75,10 @@
 
   <button class="sidebar-button" on:click={onSubmitClicked}>Generate</button>
 
-  <p>{outputText}</p>
+  {#each retval as seg}
+  <p>{seg.start} : {seg.end}</p>
+  <p>{seg.text}</p>
+  {/each}
+  <br>
+  <p>{retval}</p>
 </div>

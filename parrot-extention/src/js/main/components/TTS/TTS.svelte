@@ -18,9 +18,9 @@
   };
 
   const POST_TTS = async () => {
-    alert(`selectedModel: ${selectedModel}`)
+    // alert(`selectedModel: ${selectedModel}`)
     var ModelURL = selectedModel;
-    alert(`ModelURL: ${ModelURL}`)
+    // alert(`ModelURL: ${ModelURL}`)
     const HUGGING_FACE_TOKEN = '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';
     const resDiv = document.querySelector('.res');
     // remove the previous audio element if it exists 
@@ -37,7 +37,7 @@
         });
 
         let myBlob = new Blob([await response.arrayBuffer()], { type: "audio/flac" });
-        let audioURL = URL.createObjectURL(myBlob);
+        let audioURL = await URL.createObjectURL(await myBlob);
         responseAudio = audioURL
 
         // create a new audio element and append it to the div
@@ -46,8 +46,14 @@
         audio.src = audioURL;
         resDiv.appendChild(audio);
 
-        // download the response audio file to the directory "__dirname+"\\Downloaded Media\\""
-        const downloadAndImport = async (url, prompt) => {
+        // Call downloadAndImport function after the blob is fetched
+        await downloadAndImport(Buffer.from(await myBlob.arrayBuffer()), prompt);
+
+    } catch (error) {
+        alert(`Error! code: ${error.message}`);
+    }
+  }
+  const downloadAndImport = async (url, prompt) => {
             // alert("Downloading")
             try{
               const downloadPathflac = path.join(__dirname, "Downloaded Media", prompt + ".flac");
@@ -75,12 +81,6 @@
               alert(e.message);
             }
         }
-        downloadAndImport(Buffer.from(await myBlob.arrayBuffer()), prompt);
-
-    } catch (error) {
-        alert(`Error! code: ${error.message}`);
-    }
-  }
 
 </script>
 

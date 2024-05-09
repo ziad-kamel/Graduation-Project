@@ -87,3 +87,53 @@ export const importAudioClip = (fileLocation: string[]) => {
   app.project.importFiles([fileLocation[0]], true);
   helloWorld(availibleClips.numItems-1,true)
 };
+
+export const importSubtitle = (segments : string[]) => {
+  alert("start")
+  var start = parseFloat(segments[0])
+  var end = parseFloat(segments[1])
+
+  var text = segments[2]
+
+  var videoTrack = seq.videoTracks[0];
+
+  try {
+    var filterString = "";
+			if (Folder.fs === 'Windows') {
+				filterString = "Motion Graphics Templates:*.mogrt";
+			}
+			var mogrtToImport = File.openDialog("Choose MoGRT", // title
+				filterString, // filter available files? 
+				false); // allow multiple?
+
+        if (mogrtToImport) {
+          var targetTime = (parseFloat(seq.getPlayerPosition().ticks) + (start * 254016000000)).toString();
+          var vidTrackOffset = 1;
+          var audTrackOffset = 0;
+          var newTrackItem = seq.importMGT(mogrtToImport.fsName,
+            targetTime,
+            vidTrackOffset,
+            audTrackOffset);
+          if (newTrackItem) {
+            var moComp = newTrackItem.getMGTComponent();
+            if (moComp) {
+              var params = moComp.properties;
+              for (var z = 0; z < params.numItems; z++) {
+                var thisParam = params[0];
+              }
+              var srcTextParam = params.getParamForDisplayName("Text");
+              if (srcTextParam) {
+                var val = srcTextParam.getValue();
+                srcTextParam.setValue(text);
+              }
+            }
+          }
+
+  }} catch (e) {
+    alert("Error importing subtitle: " + e.message);
+  }
+};
+
+export const debug = () => {
+  alert("hi")
+}

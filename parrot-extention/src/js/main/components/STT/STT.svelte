@@ -1,16 +1,16 @@
 <script>
   import Replicate from "replicate";
-  import { uploadFile } from '../helpers/upload';
-  import "./STT.scss";
   import {
     evalTS,
   } from "../../../lib/utils/bolt";
-import { start } from "repl";
+  import { uploadFile } from '../helpers/upload';
+  import "./STT.scss";
   var file;
   var audioUrl;
   var outputText='';
   var retval = "";
-  
+  const replicate_token = import.meta.env.VITE_Replicate_TOKEN
+
 
   const setFile = async (inputFile) => {
     file = inputFile;
@@ -42,7 +42,7 @@ import { start } from "repl";
   const STT = async () => {
     try {
       const replicate = new Replicate({
-        auth: "r8_GGBgmV4JpkG4szoPyU1fN6sqbbdPFRt1F3xcv",
+        auth: replicate_token,
       });
 
       const output = await replicate.run(

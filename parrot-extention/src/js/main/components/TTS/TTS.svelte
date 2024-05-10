@@ -10,6 +10,7 @@
   const path = require('path');
   const fs = require('fs');
 
+  const HUGGING_FACE_TOKEN = import.meta.env.VITE_HUGGING_FACE_TOKEN
   const importAudio = (filePath) => {
     // if(filePath)
     // alert(filePath);
@@ -21,7 +22,6 @@
     // alert(`selectedModel: ${selectedModel}`)
     var ModelURL = selectedModel;
     // alert(`ModelURL: ${ModelURL}`)
-    const HUGGING_FACE_TOKEN = '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';
     const resDiv = document.querySelector('.res');
     // remove the previous audio element if it exists 
     if (resDiv.firstChild) {

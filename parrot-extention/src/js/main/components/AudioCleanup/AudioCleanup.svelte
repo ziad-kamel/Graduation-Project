@@ -7,6 +7,7 @@
   var audioUrl;
   var denoisedAudio;
   var enhancedAudio;
+  const replicate_token = import.meta.env.VITE_Replicate_TOKEN
 
   const setFile = async (inputFile) => {
     file = inputFile;
@@ -15,7 +16,7 @@
   const audioCleanup = async (audioFileURL) => {
     try {
       const replicate = new Replicate({
-        auth: "r8_V0orDpY9E6fpUDkUUYq1P3xPjn5kvud4MjDxq",
+        auth: replicate_token,
       });
 
       const input = {

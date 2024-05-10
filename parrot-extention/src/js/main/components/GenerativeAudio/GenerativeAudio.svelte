@@ -18,7 +18,7 @@
   let strategy;
   let duration =1;
   let output = "";
-  // alert(process.env.REPLICATE_API_TOKEN)
+  const replicate_token = import.meta.env.VITE_Replicate_TOKEN
 
   const generateAudio = async () => {
     const resDiv = document.querySelector('.audio-output');
@@ -28,7 +28,7 @@
     }
     try{
         const replicate = new Replicate({
-          auth: "r8_OqcWtUo5c9qexkKGaLa7Va2XFiFrirF4eUADT",
+          auth: replicate_token,
         });
 
         const out = await replicate.run(

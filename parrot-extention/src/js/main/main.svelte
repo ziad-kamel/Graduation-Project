@@ -67,8 +67,8 @@
     if (window.cep) {
       subscribeBackgroundColor((c: string) => (backgroundColor = c));
     }
-    const SignInBtn = document.getElementById('sign-btn') as HTMLElement;
-    SignInBtn.click();
+    // const SignInBtn = document.getElementById('signIn-btn') as HTMLElement;
+    // SignInBtn.click();
   });
 </script>
 
@@ -78,7 +78,11 @@ import { Clerk } from "@clerk/clerk-js";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const clerk = new Clerk(clerkPubKey);
-const clerkAuth = async () =>{ 
+const clerkAuth = async (option: string) =>{ 
+
+  document.getElementById('signIn-btn')!.style.display = 'none'
+  document.getElementById('signUp-btn')!.style.display = 'none'
+  
   try {
     const signInDiv = document.getElementById('signInDiv') as HTMLDivElement;
     await clerk.load({
@@ -90,8 +94,12 @@ const clerkAuth = async () =>{
       document.getElementById('app')!.style.display = 'block';
       clerk.closeSignIn()
     } else {
-
-      clerk.mountSignIn(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`) });  } 
+        if (option.match("in")) {
+          clerk.mountSignIn(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`) });
+        } else {
+          clerk.mountSignUp(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`)  });
+        }
+      }
     }
     catch (error) {
     //@ts-ignore
@@ -190,7 +198,8 @@ export const clerkSignOut = () => {
 </script>
 {#if !clerk.user}
 <div id="signInDiv">
-  <button on:click={clerkAuth} id="sign-btn"></button>
+  <button on:click={()=>{ clerkAuth('in')} } id="signIn-btn">Sign In</button>
+  <button on:click={()=>{ clerkAuth('up')} } id="signUp-btn">Sign Up</button>
 </div>
 {/if}
 

@@ -50,7 +50,7 @@ const config: CEP_Config = {
     sourceMap: false,
     jsxBin: "off",
   },
-  installModules: ["fluent-ffmpeg", "@clerk/clerk-js"],
+  installModules: ["fluent-ffmpeg", "@clerk/clerk-js", "child_process"],
   copyAssets: ["/Downloaded Media"],
   copyZipAssets: [],
 };

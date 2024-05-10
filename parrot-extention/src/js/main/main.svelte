@@ -17,58 +17,10 @@
   import Stt from "./components/STT/STT.svelte";
   import Tts from "./components/TTS/TTS.svelte";
   import "./main.scss";
-
-
-
-
-
-
-  let count: number = 0;
-  let backgroundColor: string = "#282c34";
-
-  //* Demonstration of Traditional string eval-based ExtendScript Interaction
-  const jsxTest = () => {
-    console.log(evalES(`helloWorld("${csi.getApplicationID()}")`));
-  };
-
-  //* Demonstration of End-to-End Type-safe ExtendScript Interaction
-  const jsxTestTS = () => {
-    evalTS("helloStr", "test").then((res) => {
-      console.log(res);
-    });
-    evalTS("helloNum", 1000).then((res) => {
-      console.log(typeof res, res);
-    });
-    evalTS("helloArrayStr", ["ddddd", "aaaaaa", "zzzzzzz"]).then((res) => {
-      console.log(typeof res, res);
-    });
-    evalTS("helloObj", { height: 90, width: 100 }).then((res) => {
-      console.log(typeof res, res);
-      console.log(res.x);
-      console.log(res.y);
-    });
-    evalTS("helloVoid").then(() => {
-      console.log("function returning void complete");
-    });
-    evalTS("helloError", "test").catch((e) => {
-      console.log("there was an error", e);
-    });
-  };
-
-  const nodeTest = () => {
-    alert(
-      `Node.js ${process.version}\nPlatform: ${
-        os.platform
-      }\nFolder: ${path.basename(window.cep_node.global.__dirname)}`
-    );
-  };
+  import Payment from "./components/Payment/Payment.svelte";
 
   onMount(() => {
-    if (window.cep) {
-      subscribeBackgroundColor((c: string) => (backgroundColor = c));
-    }
-    // const SignInBtn = document.getElementById('signIn-btn') as HTMLElement;
-    // SignInBtn.click();
+
   });
 </script>
 
@@ -97,7 +49,7 @@ const clerkAuth = async (option: string) =>{
         if (option.match("in")) {
           clerk.mountSignIn(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`) });
         } else {
-          clerk.mountSignUp(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`)  });
+          clerk.mountSignUp(signInDiv, { redirectUrl: path.join(__dirname, 'main',`index.html`) });
         }
       }
     }
@@ -119,6 +71,7 @@ export const clerkSignOut = () => {
     GenerativeAudio = "Generative",
     TTS = "TTS",
     STT = 'STT',
+    Pay = 'Pay',
   }
 
   function hideAllTabs(){
@@ -131,13 +84,12 @@ export const clerkSignOut = () => {
     tts.style.display = "none";
     const stt = document.querySelector('.stt-main') as HTMLElement;
     stt.style.display = "none";
-    
+    const pay = document.querySelector('.pay-main') as HTMLElement;
+    pay.style.display = "none";
   }
 
   export const handleTabs = (tab : string) => {
-    // evalTS("helloStr", tab).then((res) => {
-    //   console.log(res);
-    // });
+
     hideAllTabs()
     if (tab === "Home"){
       const nav = document.querySelector('.sidebar') as HTMLElement;
@@ -190,6 +142,11 @@ export const clerkSignOut = () => {
         const stt = document.querySelector('.stt-main') as HTMLElement;
         stt.style.display = "flex";
         break;
+      case TabNames.Pay:
+        hideAllTabs();
+        const pay = document.querySelector('.pay-main') as HTMLElement;
+        pay.style.display = "flex";
+        break;
       default:
         console.log("default");
     }
@@ -220,6 +177,8 @@ export const clerkSignOut = () => {
     <Tts />
 
     <Stt />
+
+    <Payment />
 </main>
 </div>
 

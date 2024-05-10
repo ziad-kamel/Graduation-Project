@@ -14,6 +14,7 @@
     <button class = "sidebar-button" on:click={()=>{handleTabs("STT")}}> STT </button>
     <button class = "sidebar-button" on:click={()=>{handleTabs("Generative")}}> Generative Audio </button>
     <button class = "sidebar-button" on:click={()=>{handleTabs("TTS")}}> TTS </button>
+    <button class = "sidebar-button" on:click={()=>{handleTabs("Pay")}}> Pay </button>
   </div>
   <button on:click={clerkSignOut}>sign out</button>
 

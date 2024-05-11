@@ -8,6 +8,7 @@ import Link from "next/link";
 import parrot from '../../public/parrot.svg';
 import { Dropdown } from "./Dropdown";
 import ThemeToggleButton from "./ThemeToggleButton";
+import { Button } from "./ui/button";
 export default function NavBar() {
     const {theme} = useTheme();
     const generationDropDownOptions = [
@@ -43,6 +44,9 @@ export default function NavBar() {
                 <ThemeToggleButton/>
                 <Dropdown label="Generation" options={generationDropDownOptions} />
                 <Dropdown label="Contact us" options={contactsDropDownOptions} />
+                <Link href={'/payment'}>
+                    <Button>Change Plan</Button>
+                </Link>
             </div>
         </div>
     </nav>
